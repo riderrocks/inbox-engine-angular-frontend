@@ -1,0 +1,58 @@
+{
+    "data": [{
+        "id": "581af000d6fa224502e57445",
+        "memberId": null,
+        "createdOn": "Thu, 03 Nov 2016 08:06",
+        "imgURL": "http://172.16.66.81/Bookmyshow/uploads/ET00035685.jpg",
+        "longTxt": "Hi test@test.com, Your ticket for The Conjuring was successfully booked!",
+        "shortTxt": "The Conjuring",
+        "viewed": false,
+        "callToAction": "http://in.bookmyshow.com/notifi/"
+    }, {
+        "id": "581aedeed6fa224502e57444",
+        "memberId": null,
+        "createdOn": "Thu, 03 Nov 2016 07:57",
+        "imgURL": "http://172.16.66.81/Bookmyshow/uploads/ET00035685.jpg",
+        "longTxt": "Hi test@test.com, Your ticket for The Conjuring was successfully booked!",
+        "shortTxt": "The Conjuring",
+        "viewed": false,
+        "callToAction": "http://in.bookmyshow.com/notifi/"
+    }, {
+        "id": "581aeda6d6fa224502e57443",
+        "memberId": null,
+        "createdOn": "Thu, 03 Nov 2016 07:56",
+        "imgURL": "http://172.16.66.81/Bookmyshow/uploads/ET00030170.jpg",
+        "longTxt": "Hi test@test.com, Your ticket for Rangitaranga was successfully booked!",
+        "shortTxt": "Rangitaranga",
+        "viewed": false,
+        "callToAction": "http://in.bookmyshow.com/notifi/"
+    }, {
+        "id": "581b08f9d6fa224502e57446",
+        "memberId": "9b2044be-709e-4bfb-940e-f7e9d479cb6d",
+        "createdOn": "Thu, 03 Nov 2016 09:52",
+        "imgURL": "http://172.16.65.3/WebNotifications/Bookmyshow/uploads/ET00035685.jpg",
+        "longTxt": "Eiusmod facilis quam mollitia praesentium dolore iure aut velit rerum eius ad nobis Nam",
+        "shortTxt": "Et fugiat dolores minima reiciendis quo temporibus fuga Laborum et totam rerum consequuntur",
+        "viewed": false,
+        "callToAction": "https://in.bookmyshow.com/bengaluru"
+    }, {
+        "id": "581325db4472027f459cdd85",
+        "memberId": "9b2044be-709e-4bfb-940e-f7e9d479cb6d",
+        "createdOn": "Fri, 28 Oct 2016 10:18",
+        "imgURL": "http://in.bmscdn.com/bmsin/new/BMS_logo_new.svg",
+        "longTxt": "Hola User. Your account has been successfully in our system",
+        "shortTxt": "Hello User",
+        "viewed": false,
+        "callToAction": "http://in.bookmyshow.com/offers/"
+    }, {
+        "id": "57f493496cadda4e26089026",
+        "memberId": "9b2044be-709e-4bfb-940e-f7e9d479cb6d",
+        "createdOn": "Wed, 05 Oct 2016 05:44",
+        "imgURL": "http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00039895.jpg",
+        "longTxt": "Hola User. Click this notification to book your ticket",
+        "shortTxt": "Pink",
+        "viewed": false,
+        "callToAction": "http://in.bookmyshow.com/offers/"
+    }],
+    "id": ["581af000d6fa224502e57445", "581aedeed6fa224502e57444", "581aeda6d6fa224502e57443", "581b08f9d6fa224502e57446", "581325db4472027f459cdd85", "57f493496cadda4e26089026"]
+}

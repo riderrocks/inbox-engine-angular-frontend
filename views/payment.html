@@ -1,0 +1,21 @@
+<div ng-controller="PaymentPostCtrl">
+    <div ng-include="'views/header.html'"></div>
+    <div class="container">
+        <div class="card">
+            <p>
+                <h3>{{movie.title}} </h3></p>
+            <img src="{{movie.imgurl}}" height="250" width="300" style="width:96%;padding:6px">
+            <div class="container">
+            </div>
+        </div>
+        <div ng-if="!isPaymentMade">
+            Price per ticket: {{movie.price}} Quantity:
+            <input type="text" name="quantity" ng-model="quantity">
+            <span ng-if="quantity > 0"> Total {{ quantity * movie.price}} </span>
+            <button ng-click='bookMovie(movie)'>Pay now</button>
+        </div>
+        <div ng-if="isPaymentMade">
+        Your payment has been successfully made!
+        </div>
+    </div>
+</div>

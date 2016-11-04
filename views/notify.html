@@ -1,0 +1,23 @@
+<div ng-controller="NotifyCtrl">
+    <div ng-include="'views/header.html'"></div>
+    <div class='outContainer' ng-repeat="i in notifications.data">
+        <ul class='outUl'>
+            <a href="{{i.callToAction}}" target='_blank'>
+                <li id="{{i.id}}" class="outLi" value="" >
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img ng-src="{{i.imgURL}}" class="outImg">
+                        </div>
+                        <div class="col-md-9">
+                            <strong class="title">{{i.shortTxt}}</strong>
+                            <sup ng-class="i.viewed==false?'new':'old'">New</sup>
+                            <small class="msg">{{i.longTxt}}</small>
+                            <small class="date">{{i.createdOn}}</small>
+                        </div>
+                    </div>
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>
+<!-- <p style="color:black">{{notifications}}</p> -->
