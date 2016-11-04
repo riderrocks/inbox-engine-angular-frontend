@@ -1,8 +1,7 @@
-var UserNotificationService = app.service('UserNotificationService', ['$q','$http', 'CommonProp', function($q, $http, CommonProp) {
+var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', function($q, $http, CommonProp) {
     this.url = 'http://172.16.65.3/inbox/set';
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
-
 
     this.notifyBookMovie = function(movie) {
 
@@ -45,7 +44,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
         });
     }
 
-    this.prepareData = function(data) {
+    this.prepareData = function(data, isNotification) {
 
         var announcement = [];
         var mongoIdArray = {};
@@ -61,7 +60,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
                 shortTxt: data[i].shortTxt,
                 viewed: data[i].viewed,
                 callToAction: data[i].callToAction[0].link,
-                flag: data[i].flag,
+                isNotification: isNotification,
             };
             response_id.push(data[i]._id);
             response_data.push(announcement[i]);
@@ -86,17 +85,17 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
                 "memberId": this.userId
             }
         }).then(function successCallback(response) {
-            var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements), currentObject.prepareData(response.data.notifications));
+            var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements, false), currentObject.prepareData(response.data.notifications, true));
             defer.resolve(notifications);
         });
         return defer.promise;
     }
 
-    this.concatAnnouncementAndNotifications = function(announcement, notification){
-        for (var i=0; i<announcement.data.length; i++){
-                notification.data.push(announcement.data[i]);
-                notification.id.push(announcement.id[i]);
-            }
-            return notification;
+    this.concatAnnouncementAndNotifications = function(announcement, notification) {
+        for (var i = 0; i < announcement.data.length; i++) {
+            notification.data.push(announcement.data[i]);
+            notification.id.push(announcement.id[i]);
+        }
+        return notification;
     }
 }]);
