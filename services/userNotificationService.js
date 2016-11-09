@@ -4,8 +4,6 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
     this.userEmail = CommonProp.getUser();
 
     this.notifyBookMovie = function(movie) {
-        console.log('notifyBookMovie called');
-
         var notification = {
             "shortTxt" : movie.title || movie.arrET[0].Event_strTitle,
             "createdOn": "2015-07-18T16:16:39.669Z",
@@ -46,7 +44,6 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
     }
 
     this.prepareData = function(data, isNotification) {
-
         var announcement = [];
         var mongoIdArray = {};
         var response_id = [];
@@ -72,8 +69,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return mongoIdArray;
     }
 
-    this.getAllNotifications = function() {
-        console.log('getAllNotifications called');
+    this.getAllNotifications = function () {
         currentObject = this;
         var announcement_ids = [];
         var notification_ids = [];

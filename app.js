@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('myApp', ['ngRoute', 'myApp.movies','myApp.register', 'myApp.home', 'myApp.header', 'myApp.payment', 'myApp.profile','myApp.notify']).config(['$routeProvider', function($routeProvider) {
+var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'myApp.header', 'myApp.movies',  'myApp.payment', 'myApp.notify', 'myApp.profile']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({
         redirectTo: '/home'
     });

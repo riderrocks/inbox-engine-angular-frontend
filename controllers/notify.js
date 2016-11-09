@@ -1,8 +1,8 @@
 'use strict';
 angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/notify', {
-        templateUrl: 'views/notify.html',
-        controller: 'NotifyCtrl'
+        templateUrl: 'views/notify.html'
+        // controller: 'NotifyCtrl'
     });
 }]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', 'UserNotificationService', 'CommonProp', function($scope, $http, $filter, $firebase, $location, UserNotificationService, CommonProp) {
 
@@ -42,7 +42,6 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
     }
 
     $scope.markAllNotificationAsViewed = function() {
-    	console.log('markAllNotificationAsViewed called');
         var notificationsToMark = $filter('filter')($scope.notifications.data, {
             isNotification: false
         });

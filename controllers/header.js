@@ -14,9 +14,9 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     //     $scope.updateNotViewedCount();
     // });
 
-    // $scope.updateNotViewedCount = function() {
-    // 	$scope.notViewedCount = $filter('filter')($scope.notifications.data, {
-    //         viewed: false
-    //     }).length;
-    // }
+    $scope.updateNotViewedCount = function() {
+    	$scope.notViewedCount = $filter('filter')($scope.notifications.data, {
+            viewed: false
+        }).length;
+    }
 }]);
