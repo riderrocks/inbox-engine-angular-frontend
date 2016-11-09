@@ -114,6 +114,7 @@ form .progress{line-height:15px;}
 strong.title {
     float: left;
     padding-left: 10px;
+    font-size: -webkit-xxx-large;
 }
 
 small.msg {

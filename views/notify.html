@@ -6,8 +6,11 @@
             <a target='_blank'>
                 <li id="{{i.id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3" ng-if="i.imgURL">
                             <img ng-src="{{i.imgURL}}" class="outImg">
+                        </div>
+                        <div class="col-md-3" ng-if="!i.imgURL">
+                            <img ng-src="images/Bell-icon.png">
                         </div>
                         <div class="col-md-9">
                             <strong class="title">{{i.shortTxt}}</strong>
@@ -21,4 +24,4 @@
         </ul>
     </div>
 </div>
-<!-- <p style="color:black">{{notifications}}</p> -->
+<!-- <p style="color:black">Hi Customer, Booking ID: {{responseData.arrTT[0].Booking_lngId}}. Seats: {{responseData.arrTT[0].Trans_strSeatInfo}} for {{responseData.arrET[0].Event_strTitle}} on {{responseData.arrSS[0].Session_dtmRealShow}} at {{responseData.arrTTD[0].Venue_strCode}}. Please carry your CC/DC card which was used for booking tickets.</p>  -->

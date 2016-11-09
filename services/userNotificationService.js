@@ -4,12 +4,13 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
     this.userEmail = CommonProp.getUser();
 
     this.notifyBookMovie = function(movie) {
+        console.log('notifyBookMovie called');
 
         var notification = {
-            "shortTxt": movie.title,
+            "shortTxt" : movie.title || movie.arrET[0].Event_strTitle,
             "createdOn": "2015-07-18T16:16:39.669Z",
-            "memberEmail": this.userEmail,
-            "memberId": this.userId,
+            "memberEmail" : this.userEmail || movie.arrTT[0].Trans_strAlertMail,
+            "memberId" : this.userId || movie.arrTT[0].Member_lngId,
             "type": "system",
             "sequence": 1,
             "validFrom": "2016-10-01T00:00:00.000Z",
@@ -30,8 +31,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                     "target": "_target"
                 }]
             }],
-            "imgURL": movie.imgurl,
-            "longTxt": "Hi " + this.userEmail + ", Your ticket for " + movie.title + " was successfully booked!"
+            "imgURL": movie.imgurl ? movie.imgurl : null,
+            "longTxt": "Hi Customer, Booking ID: " + (movie.Booking_lngId || movie.arrTT[0].Booking_lngId) +". Seats: " + (movie.Trans_strSeatInfo || movie.arrTT[0].Trans_strSeatInfo) + " for " + (movie.title || movie.arrET[0].Event_strTitle) + " on "+ (movie.Session_dtmRealShow || movie.arrSS[0].Session_dtmRealShow) + " at " + (movie.Venue_strCode || movie.arrTTD[0].Venue_strCode) +". Please carry your CC/DC card which was used for booking tickets." 
         };
         $http({
             method: 'POST',
@@ -72,6 +73,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
     }
 
     this.getAllNotifications = function() {
+        console.log('getAllNotifications called');
         currentObject = this;
         var announcement_ids = [];
         var notification_ids = [];

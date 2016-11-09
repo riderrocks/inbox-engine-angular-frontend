@@ -82,5 +82,5 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
             }
             $scope.updateNotViewedCount();
         });
-    }
+    }    
 }]);
