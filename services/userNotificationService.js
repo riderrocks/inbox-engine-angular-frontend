@@ -1,5 +1,5 @@
-var UserNotificationService = app.service('UserNotificationService', ['$q','$http', 'CommonProp', function($q, $http, CommonProp) {
-    this.url = 'http://172.16.65.3/inbox/set';
+var UserNotificationService = app.service('UserNotificationService', ['$q','$http', 'CommonProp','CONFIG', function($q, $http, CommonProp, CONFIG) {
+    this.baseUrl = CONFIG.INBOX.baseUrl;
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
 
@@ -36,7 +36,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
         };
         $http({
             method: 'POST',
-            url: this.url,
+            url: this.baseUrl+"inbox/set",
             data: notification
         }).then(function successCallback(response) {
             console.log(response);
@@ -79,7 +79,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
         var defer = $q.defer();
         $http({
             method: 'POST',
-            url: "http://172.16.65.3/inbox/get",
+            url: this.baseUrl+"inbox/get",
             data: {
                 "appCode": "WEBIN",
                 "regionCode": "MUM",

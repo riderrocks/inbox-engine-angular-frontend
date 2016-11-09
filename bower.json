@@ -17,7 +17,7 @@
     "angular-base64": "~2.0.5",
     "angular-route": "~1.4.9",
     "ideal-image-slider": "~1.5.1",
-    "please-wait": "~0.0.5",
+    "please-wait": "^0.0.5",
     "ng-file-upload": "~10.1.11",
     "html5-boilerplate": "~5.2.0",
     "sweetalert": "~1.1.3"
