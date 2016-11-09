@@ -4,7 +4,7 @@ angular.module('myApp.movies', ['ngRoute']).config(['$routeProvider', function($
         templateUrl: 'views/movies.html',
         controller: 'MoviesCtrl'
     });
-}]).controller('MoviesCtrl', ['$scope', '$firebase', '$location', 'CommonProp', 'MovieService', function($scope, $firebase, $location, CommonProp, MovieService) {    
+}]).controller('MoviesCtrl', ['$scope', '$firebase', '$location', 'CommonProp', 'MovieService','SocketIoService', function($scope, $firebase, $location, CommonProp, MovieService, SocketIoService) {
     
     $scope.movies = MovieService.getMoviesForBooking();
     $scope.username = CommonProp.getUser();
@@ -16,4 +16,10 @@ angular.module('myApp.movies', ['ngRoute']).config(['$routeProvider', function($
     $scope.logout = function() {
         CommonProp.logoutUser();
     }
+
+    SocketIoService.on('alert', function (data) {
+        console.log(data);
+    });
+
+
 }]);

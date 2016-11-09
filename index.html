@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 
 <head>
@@ -23,7 +24,8 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
-    
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+    <script src="bower_components/angular-socket-io/socket.js"></script>
      <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
 
     <script src="lib/jquery-2.0.1.min.js"></script>
@@ -34,6 +36,7 @@
     <script src="lib/spin.min.js"></script>
     <script src="lib/ladda.min.js"></script>
     <script src="app.js"></script>
+    <script src="services/socketIoService.js"></script>
     <script src="services/movieService.js"></script>
     <script src="services/userNotificationService.js"></script>
     <script src="services/showHide.js"></script>
@@ -45,6 +48,7 @@
     <script src="controllers/notify.js"></script>
     <script src="controllers/profile.js"></script>
     <script src="lib/loadingStop.js"></script>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
 </body>
 
 </html>

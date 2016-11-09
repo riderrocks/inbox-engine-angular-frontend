@@ -7,9 +7,4 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     $scope.logout = function() {
         CommonProp.logoutUser();
     }
-
-    var notifications = UserNotificationService.getAllNotifications();
-    notifications.then(function(notification) {
-        $scope.notifications = notification;
-    });
 }]);
