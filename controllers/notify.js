@@ -2,7 +2,7 @@
 angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/notify', {
         templateUrl: 'views/notify.html',
-        controller: 'NotifyCtrl'
+        // controller: 'NotifyCtrl'
     });
 }]).controller('NotifyCtrl', ['$scope', '$firebase', '$location', 'UserNotificationService', 'CommonProp', function($scope, $firebase, $location, UserNotificationService, CommonProp) {
 

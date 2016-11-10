@@ -1,11 +1,11 @@
-var UserNotificationService = app.service('UserNotificationService', ['$q','$http', 'CommonProp','CONFIG', function($q, $http, CommonProp, CONFIG) {
+var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', 'CONFIG', function($q, $http, CommonProp, CONFIG) {
     this.baseUrl = CONFIG.INBOX.baseUrl;
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
 
 
     this.notifyBookMovie = function(movie) {
-
+        console.log('called');
         var notification = {
             "shortTxt": movie.title,
             "createdOn": "2015-07-18T16:16:39.669Z",
@@ -36,7 +36,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
         };
         $http({
             method: 'POST',
-            url: this.baseUrl+"inbox/set",
+            url: this.baseUrl + "inbox/set",
             data: notification
         }).then(function successCallback(response) {
             console.log(response);
@@ -79,7 +79,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
         var defer = $q.defer();
         $http({
             method: 'POST',
-            url: this.baseUrl+"inbox/get",
+            url: this.baseUrl + "inbox/get",
             data: {
                 "appCode": "WEBIN",
                 "regionCode": "MUM",
@@ -92,11 +92,11 @@ var UserNotificationService = app.service('UserNotificationService', ['$q','$htt
         return defer.promise;
     }
 
-    this.concatAnnouncementAndNotifications = function(announcement, notification){
-        for (var i=0; i<announcement.data.length; i++){
-                notification.data.push(announcement.data[i]);
-                notification.id.push(announcement.id[i]);
-            }
-            return notification;
+    this.concatAnnouncementAndNotifications = function(announcement, notification) {
+        for (var i = 0; i < announcement.data.length; i++) {
+            notification.data.push(announcement.data[i]);
+            notification.id.push(announcement.id[i]);
+        }
+        return notification;
     }
 }]);
