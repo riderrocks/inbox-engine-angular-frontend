@@ -80,7 +80,6 @@ form .progress{line-height:15px;}
     width: 400px;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 2px;
     margin-left: 606px;
 }
 
@@ -92,7 +91,7 @@ form .progress{line-height:15px;}
 
 .outLi {
     background-color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     font-size: 14px;
     float: center;
     float: none !important;
@@ -115,6 +114,7 @@ form .progress{line-height:15px;}
 strong.title {
     float: left;
     padding-left: 10px;
+    font-size: xx-large;
 }
 
 small.msg {

@@ -3,9 +3,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
 
-
     this.notifyBookMovie = function(movie) {
-        console.log('called');
         var notification = {
             "shortTxt": movie.title,
             "createdOn": "2015-07-18T16:16:39.669Z",
