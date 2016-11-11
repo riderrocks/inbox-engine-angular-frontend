@@ -1,21 +1,46 @@
 <div ng-controller="PaymentPostCtrl">
     <div ng-include="'views/header.html'"></div>
     <div class="container">
-        <div class="card">
-            <p>
-                <h3>{{movie.title}} </h3></p>
-            <img src="{{movie.imgurl}}" height="250" width="300" style="width:96%;padding:6px">
-            <div class="container">
+        <div class="row">
+            <div class="card col-md-6">
+                <p>
+                    <h3>{{movie.title}} </h3></p>
+                <img src="{{movie.imgurl}}" height="250" width="300" class="paymentImg">
+                <div class="container">
+                </div>
             </div>
-        </div>
-        <div ng-if="!isPaymentMade">
-            Price per ticket: {{movie.price}} Quantity:
-            <input type="text" name="quantity" ng-model="quantity">
-            <span ng-if="quantity > 0"> Total {{ quantity * movie.price}} </span>
-            <button ng-click='bookMovie(movie)'>Pay now</button>
-        </div>
-        <div ng-if="isPaymentMade">
-        Your payment has been successfully made!
+            <div class="card col-md-6 bookingSummary">
+                <div ng-if="isPaymentMade" class="paymentCenter">
+                    <h1><font color='green'>Your payment has been successfully made!</font></h1>
+                </div>
+                <div ng-if="!isPaymentMade">
+                    <h1 class="paymentCenter"><font color='red'>Booking Summary</font></h1>
+                    <font color='black'>
+                        <table class="paymentTable">
+                            <tr>
+                                <td>DIAMOND-J5,J6 ( 2 Tickets ) SCREEN 1</td>
+                                <td>Rs. {{movie.price}}</td>
+                            </tr>
+                            <tr>
+                                <td>Internet handling fees</td>
+                                <td>Rs. {{quantity * movie.price * .10}}</td>
+                            </tr>
+                            <tr>
+                                <td>Sub total</td>
+                                <td>Rs. {{ quantity * movie.price}}</td>
+                            </tr>
+                            <tr class="paymentAmount">
+                                <td>Amount Payable</td>
+                                <td>Rs. {{ quantity * movie.price}}</td>
+                            </tr>
+                        </table>
+                    </font>
+                    <span class="paymentPrice"><font color='black'>Price per ticket: {{movie.price}} Quantity:</font></span>
+                    <input type="text" name="quantity" ng-model="quantity">
+                    <span ng-if="quantity > 0"><font color='black'> Total {{ quantity * movie.price}}</font></span>
+                    <a class="btn book" ng-click='bookMovie(movie)'>Pay now</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
