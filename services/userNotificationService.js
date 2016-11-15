@@ -1,14 +1,15 @@
 var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', 'CONFIG', function($q, $http, CommonProp, CONFIG) {
     this.baseUrl = CONFIG.INBOX.baseUrl;
+    this.url = 'http://172.16.65.3/inbox/set';
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
 
     this.notifyBookMovie = function(movie) {
         var notification = {
-            "shortTxt": movie.title,
+            "shortTxt" : movie.title || movie.arrET[0].Event_strTitle,
             "createdOn": "2015-07-18T16:16:39.669Z",
-            "memberEmail": this.userEmail,
-            "memberId": this.userId,
+            "memberEmail" : this.userEmail || movie.arrTT[0].Trans_strAlertMail,
+            "memberId" : this.userId || movie.arrTT[0].Member_lngId,
             "type": "system",
             "sequence": 1,
             "validFrom": "2016-10-01T00:00:00.000Z",
@@ -29,8 +30,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                     "target": "_target"
                 }]
             }],
-            "imgURL": movie.imgurl,
-            "longTxt": "Hi " + this.userEmail + ", Your ticket for " + movie.title + " was successfully booked!"
+            "imgURL": movie.imgurl ? movie.imgurl : null,
+            "longTxt": "Hi Customer, Booking ID: " + (movie.Booking_lngId || movie.arrTT[0].Booking_lngId) +". Seats: " + (movie.Trans_strSeatInfo || movie.arrTT[0].Trans_strSeatInfo) + " for " + (movie.title || movie.arrET[0].Event_strTitle) + " on "+ (movie.Session_dtmRealShow || movie.arrSS[0].Session_dtmRealShow) + " at " + (movie.Venue_strCode || movie.arrTTD[0].Venue_strCode) +". Please carry your CC/DC card which was used for booking tickets." 
         };
         $http({
             method: 'POST',
@@ -43,8 +44,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         });
     }
 
-    this.prepareData = function(data) {
-
+    this.prepareData = function(data, isNotification) {
         var announcement = [];
         var mongoIdArray = {};
         var response_id = [];
@@ -59,7 +59,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 shortTxt: data[i].shortTxt,
                 viewed: data[i].viewed,
                 callToAction: data[i].callToAction[0].link,
-                flag: data[i].flag,
+                isNotification: isNotification,
             };
             response_id.push(data[i]._id);
             response_data.push(announcement[i]);
@@ -70,7 +70,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return mongoIdArray;
     }
 
-    this.getAllNotifications = function() {
+    this.getAllNotifications = function () {
         currentObject = this;
         var announcement_ids = [];
         var notification_ids = [];
@@ -84,7 +84,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "memberId": this.userId
             }
         }).then(function successCallback(response) {
-            var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements), currentObject.prepareData(response.data.notifications));
+            var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements, false), currentObject.prepareData(response.data.notifications, true));
             defer.resolve(notifications);
         });
         return defer.promise;
