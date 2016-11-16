@@ -6,7 +6,9 @@
             <a class="blog-nav-item blog-nav-item-right" href="#" ng-click="logout();">Logout</a>
             <a class="blog-nav-item blog-nav-item-right" ng-class="{active: isRouteActive('/profile')}" href="#/profile"><span class="glyphicon glyphicon-user"></span></a>
             <a class="blog-nav-item blog-nav-item-right" ng-class="{active: isRouteActive('/notify')}" href="#/notify" ng-click='markAllNotificationAsViewed()'>
-                  <bell-counter></bell-counter></a>
+                <span class="glyphicon glyphicon-bell"></span>
+                <bell-notification></bell-notification>
+            </a>
         </nav>
     </div>
 </div>
