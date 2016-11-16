@@ -11,14 +11,14 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
 
     notifications.then(function(notification) {
         $scope.notifications = notification;
-        $scope.updateNotViewedCount();
+        $scope.notViewedCount = UserNotificationService.updateNotViewedCount($scope.notifications);
     });
 
-    $scope.updateNotViewedCount = function() {
-        $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
-            viewed: false
-        }).length;
-    }
+    // $scope.updateNotViewedCount = function() {
+    //     $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
+    //         viewed: false
+    //     }).length;
+    // }
 
     var userId = CommonProp.getUserId();
     var apiName = '';
@@ -82,7 +82,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
                     notification.viewed = true;
                 });
             }
-            $scope.updateNotViewedCount();
+            $scope.notViewedCount = UserNotificationService.updateNotViewedCount($scope.notifications);
         });
     }
 }]);

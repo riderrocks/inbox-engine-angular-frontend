@@ -7,14 +7,4 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     $scope.logout = function() {
         CommonProp.logoutUser();
     }
-
-
-<<<<<<< HEAD
-    // $scope.updateNotViewedCount = function() {
-    // 	$scope.notViewedCount = $filter('filter')($scope.notifications.data, {
-    //         viewed: false
-    //     }).length;
-    // }
-=======
->>>>>>> e17347e1a02c1a1df6a48912d90edd44f0efe407
 }]);
