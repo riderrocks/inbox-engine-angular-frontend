@@ -1,12 +1,45 @@
-<div ng-controller="NavbarCtrl" class="blog-masthead">
-    <div class="container">
-        <nav class="blog-nav">
-            <a class="blog-nav-item" ng-class="{active : isRouteActive('/movies')}" href="#/movies">Movies</a>
-            <a class="blog-nav-item" ng-class="{active : isRouteActive('/payment/:id')}" href="#/payment/:id">Payment</a>
-            <a class="blog-nav-item blog-nav-item-right" href="#" ng-click="logout();">Logout</a>
-            <a class="blog-nav-item blog-nav-item-right" ng-class="{active: isRouteActive('/profile')}" href="#/profile"><span class="glyphicon glyphicon-user"></span></a>
-            <a class="blog-nav-item blog-nav-item-right" ng-class="{active: isRouteActive('/notify')}" href="#/notify" ng-click='markAllNotificationAsViewed()'>
-                <span class="glyphicon glyphicon-bell"></span><span id='notification_count' ng-if='notViewedCount>0'>{{notViewedCount}}</span></a>
-        </nav>
+<div ng-controller="NavbarCtrl">
+    <div class="blog-masthead">
+        <div class="container">
+            <nav class="blog-nav">
+                <a class="blog-nav-item" ng-class="{active : isRouteActive('/movies')}" href="#/movies">Movies</a>
+                <a class="blog-nav-item" ng-class="{active : isRouteActive('/payment/:id')}" href="#/payment/:id">Payment</a>
+                <a class="blog-nav-item blog-nav-item-right" href="#" ng-click="logout();">Logout</a>
+                <a class="blog-nav-item blog-nav-item-right" ng-class="{active: isRouteActive('/profile')}" href="#/profile"><span class="glyphicon glyphicon-user"></span></a>
+                <a class="blog-nav-item blog-nav-item-right" ng-click='markAllNotificationAsViewed();ShowHide()'>
+                    <span class="glyphicon glyphicon-bell"></span><span id='notification_count' ng-if='notViewedCount>0'>{{notViewedCount}}</span>
+                </a>
+            </nav>
+        </div>
+        <div ng-show="IsVisible" style="position: absolute;right: 150px;z-index:2;background:#fbf4f4;">
+            <div class="headder_footer">Notification</div>
+            <div style="overflow-y:scroll; height: 413px;width: 445px;">
+                <div class='outContainer' ng-repeat="i in notifications.data">
+                    <ul class='outUl'>
+                        <a href="{{i.callToAction}}" target='_blank'></a>
+                        <a target='_blank'>
+                            <li id="{{id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
+                                <div class="row" style="background-color: #eae9e7;">
+                                    <div class="col-md-3" ng-if="i.imgURL">
+                                        <img ng-src="{{i.imgURL}}" class="outImg">
+                                    </div>
+                                    <div class="col-md-3" ng-if="!i.imgURL">
+                                        <img ng-src="images/Bell-icon.png">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <span class="cross glyphicon glyphicon-remove" ng-click="SoftDelete(notifications.data, $index)"></span>
+                                        <strong class="title">{{i.shortTxt}}</strong>
+                                        <sup ng-class="i.viewed==false?'new':'old'">New</sup>
+                                        <small class="msg">{{i.longTxt}}</small>
+                                        <small class="date">{{i.createdOn}}</small>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <div class="headder_footer"><a ng-class="{active : isRouteActive('/notify')}" href="#/notify">See All</div>
+        </div>
     </div>
 </div>

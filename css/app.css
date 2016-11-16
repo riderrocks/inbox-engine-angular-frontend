@@ -1,3 +1,36 @@
+/* 16 nov 2016
+changes line 4-32,108,302
+*/
+
+.headder_footer {
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+    height: 29px;
+    color: #333;
+    margin-top: 4px;
+}
+
+.headder_footer a {
+    color: #333;
+    text-decoration: none;
+}
+
+.headder_footer a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.headder_footer a:visited {
+    background-color: #333;
+    text-decoration: none;
+}
+
+.cross {
+    position: absolute;
+    right: 5px;
+}
+
 @font-face {
     font-family: 'montserratbold';
     src: url('../fonts/montserrat-bold-webfont.eot');
@@ -105,6 +138,7 @@ strong,
 
 a.blog-nav-item-right {
     float: right;
+    right: -360px;
 }
 
 .blog-nav .active {
@@ -294,7 +328,8 @@ form .progress {
     width: 400px;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: 606px;
+    /*    margin-left: 606px;
+*/
 }
 
 .outUl {
