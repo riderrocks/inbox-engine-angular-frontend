@@ -4,7 +4,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
         templateUrl: 'views/notify.html',
         // controller: 'NotifyCtrl'
     });
-}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', 'UserNotificationService', 'CommonProp','CONFIG', function($scope, $http, $filter, $firebase, $location, UserNotificationService, CommonProp, CONFIG) {
+}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', '$window', 'UserNotificationService', 'CommonProp','CONFIG', function($scope, $http, $filter, $firebase, $location, $window, UserNotificationService, CommonProp, CONFIG) {
     UserNotificationService.getAllNotifications().then(function(notification) {
         $scope.notifications = notification;
     });
@@ -26,7 +26,6 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
             data.viewedAnnouncements = notification.id;
             apiName = 'get';
         }
-
         $scope.ajaxCall(data, apiName, notification);
     }
 
@@ -69,6 +68,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
                     notification.viewed = true;
                 });
             }
+            $window.location.reload();
         });
     }
 }]);

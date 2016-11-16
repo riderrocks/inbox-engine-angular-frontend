@@ -18,25 +18,25 @@
                     <font color='black'>
                         <table class="paymentTable">
                             <tr>
-                                <td>{{movie.seatInfo}} ( {{quantity}} Tickets ) {{movie.screen}}</td>
+                                <td>{{movie.seatInfo}} ( {{movie.quantity}} Tickets ) {{movie.screen}}</td>
                                 <td>Rs. {{movie.price}}</td>
                             </tr>
                             <tr>
                                 <td>Internet handling fees</td>
-                                <td>Rs. {{quantity * movie.price * .10}}</td>
+                                <td>Rs. {{movie.quantity * movie.price * .10}}</td>
                             </tr>
                             <tr>
                                 <td>Sub total</td>
-                                <td>Rs. {{ quantity * movie.price}}</td>
+                                <td>Rs. {{ movie.quantity * movie.price}}</td>
                             </tr>
                             <tr class="paymentAmount">
                                 <td>Amount Payable</td>
-                                <td>Rs. {{ quantity * movie.price}}</td>
+                                <td>Rs. {{ movie.quantity * movie.price}}</td>
                             </tr>
                         </table>
                     </font>
                     <span class="paymentPrice"><font color='black'>Price per ticket: {{movie.price}} Quantity:</font></span>
-                    <input type="text" name="quantity" ng-model="quantity">
+                    <input type="text" name="quantity" ng-model="movie.quantity">
                     <span ng-if="quantity > 0"><font color='black'> Total {{ quantity * movie.price}}</font></span>
                     <a class="btn book" ng-click='bookMovie(movie)'>Pay now</a>
                 </div>

@@ -6,8 +6,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         movie.title = 'Rangitaranga';
         movie.imgurl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00030170.jpg';
         movie.venue = 'Inox Garuda Mall';
-        movie.date = '28-10-2016';
-        movie.showtime = '10.30am';
+        movie.dateShowTime = new Date();
         movie.price = '120';
         movie.booknow = '#/payment/' + movie.id;
         movie.language = 'Kannada';
@@ -27,6 +26,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '200';
         newMovie.seatInfo = 'DIAMOND';
         newMovie.screen = 'AUDI 1';
+        newMovie.dateShowTime = '17/11/2016 4:25pm';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030172';
@@ -39,6 +39,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '120';
         newMovie.seatInfo = 'PREMIER';
         newMovie.screen = 'SCREEN 5';
+        newMovie.dateShowTime = '19/11/2016 5:30pm';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030173';
@@ -51,6 +52,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '180';
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'AUDI 2';
+        newMovie.dateShowTime = '20-11-2016 10:30am';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030174';
@@ -63,6 +65,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '180';
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'SCREEN 7';
+        newMovie.dateShowTime = '19-11-2016 2:30pm';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030175';
@@ -75,6 +78,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '180';
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'AUDI 6';
+        newMovie.dateShowTime = '20-11-2016 9:30pm';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030176';
