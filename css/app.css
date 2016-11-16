@@ -137,7 +137,7 @@ strong,
 }
 
 a.blog-nav-item-right {
-    left: 89%;
+    float: right;
 }
 
 .blog-nav .active {
@@ -327,8 +327,13 @@ form .progress {
     width: 400px;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
-    /*    margin-left: 606px;
-*/
+}
+
+.oldOutContainer {
+width: 400px;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 606px;
 }
 
 .outUl {

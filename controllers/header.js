@@ -84,7 +84,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         $scope.ajaxCall = function(data, apiName, notification) {
             $http({
                 method: 'POST',
-                url: "http://172.16.66.54/inbox/" + apiName,
+                url: "http://172.16.65.3:6633/inbox/" + apiName,
                 data: data
             }).then(function successCallback() {
                 if (notification) {
