@@ -15,6 +15,7 @@
                         <div class="col-md-9">
                             <strong class="title">{{i.shortTxt}}</strong>
                             <sup ng-class="i.viewed==false?'new':'old'">New</sup>
+                            <!-- <a style='float:right;margin-right: 5px;'>X</a> -->
                             <small class="msg">{{i.longTxt}}</small>
                             <small class="date">{{i.createdOn}}</small>
                         </div>
@@ -24,4 +25,3 @@
         </ul>
     </div>
 </div>
-<!-- <p style="color:black">Hi Customer, Booking ID: {{responseData.arrTT[0].Booking_lngId}}. Seats: {{responseData.arrTT[0].Trans_strSeatInfo}} for {{responseData.arrET[0].Event_strTitle}} on {{responseData.arrSS[0].Session_dtmRealShow}} at {{responseData.arrTTD[0].Venue_strCode}}. Please carry your CC/DC card which was used for booking tickets.</p>  -->

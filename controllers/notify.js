@@ -4,85 +4,73 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
         templateUrl: 'views/notify.html',
         // controller: 'NotifyCtrl'
     });
-}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase',
-    '$location', 'UserNotificationService', 'CommonProp',
-    function($scope, $http,
-        $filter, $firebase, $location, UserNotificationService, CommonProp) {
+}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', '$window', 'UserNotificationService', 'CommonProp', 'CONFIG', function($scope, $http, $filter, $firebase, $location, $window, UserNotificationService, CommonProp, CONFIG) {
+    UserNotificationService.getAllNotifications().then(function(notification) {
+        $scope.notifications = notification;
+    });
+    $scope.baseUrl = CONFIG.INBOX.baseUrl;
+    var userId = CommonProp.getUserId();
+    var apiName = '';
+    $scope.markNotificationAsViewed = function(notification) {
+        var data = {
+            'appCode': 'WEBIN',
+            'memberId': userId,
+            'regionCode': 'MUM'
+        };
 
-        var notifications = UserNotificationService.getAllNotifications();
+        if (notification.isNotification) {
+            data._id = notification.id;
+            data.flag = 'N';
+            apiName = 'viewed';
+        } else {
+            data.viewedAnnouncements = notification.id;
+            apiName = 'get';
+        }
+        $scope.ajaxCall(data, apiName, notification);
+    }
 
-        notifications.then(function(notification) {
-            $scope.notifications = notification;
-            $scope.updateNotViewedCount();
+    $scope.markAllNotificationAsViewed = function() {
+
+        var notificationsToMark = $filter('filter')($scope.notifications.data, {
+            isNotification: false
         });
 
-        $scope.updateNotViewedCount = function() {
-            $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
-                viewed: false
-            }).length;
-        }
+        var idsToMark = [];
 
-        var userId = CommonProp.getUserId();
-        var apiName = '';
+        angular.forEach(notificationsToMark, function(notification, key) {
+            idsToMark.push(notification.id);
+        }, idsToMark);
 
-        $scope.markNotificationAsViewed = function(notification) {
-            var data = {
-                'appCode': 'WEBIN',
-                'memberId': userId,
-                'regionCode': 'MUM'
-            };
 
-            if (notification.isNotification) {
-                data._id = notification.id;
-                data.flag = 'N';
-                apiName = 'viewed';
-            } else {
-                data.viewedAnnouncements = notification.id;
-                apiName = 'get';
-            }
+        var data = {
+            'appCode': 'WEBIN',
+            'memberId': userId,
+            'regionCode': 'MUM'
+        };
+        console.log(data);
 
-            $scope.ajaxCall(data, apiName, notification);
-        }
+        apiName = 'get';
 
-        $scope.markAllNotificationAsViewed = function() {
-            var notificationsToMark = $filter('filter')($scope.notifications.data, {
-                isNotification: false
-            });
+        data.viewedAnnouncements = idsToMark;
 
-            var idsToMark = [];
-
-            angular.forEach(notificationsToMark, function(notification, key) {
-                idsToMark.push(notification.id);
-            }, idsToMark);
-
-            var data = {
-                'appCode': 'WEBIN',
-                'memberId': userId,
-                'regionCode': 'MUM'
-            };
-
-            apiName = 'get';
-
-            data.viewedAnnouncements = idsToMark;
-
-            $scope.ajaxCall(data, apiName, null);
-        }
-
-        $scope.ajaxCall = function(data, apiName, notification) {
-            $http({
-                method: 'POST',
-                url: "http://172.16.66.54/inbox/" + apiName,
-                data: data
-            }).then(function successCallback() {
-                if (notification) {
-                    notification.viewed = true;
-                } else {
-                    angular.forEach($scope.notifications.data, function(notification, key) {
-                        notification.viewed = true;
-                    });
-                }
-                $scope.updateNotViewedCount();
-            });
-        }
+        $scope.ajaxCall(data, apiName, null);
     }
-]);
+
+
+    $scope.ajaxCall = function(data, apiName, notification) {
+        $http({
+            method: 'POST',
+            url: $scope.baseUrl + "inbox/" + apiName,
+            data: data
+        }).then(function successCallback() {
+            if (notification) {
+                notification.viewed = true;
+            } else {
+                angular.forEach($scope.notifications.data, function(notification, key) {
+                    notification.viewed = true;
+                });
+            }
+            $window.location.reload();
+        });
+    }
+}]);
