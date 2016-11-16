@@ -29,6 +29,9 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         $scope.ShowHide = function() {
             $scope.IsVisible = $scope.IsVisible ? false : true;
         }
+        $scope.redirect = function() {
+            $location.path('/notify');
+        }
         $scope.SoftDelete = function(array, index) {
                 array.splice(index, 1);
             }
