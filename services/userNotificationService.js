@@ -1,6 +1,5 @@
 var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', 'CONFIG', '$filter', function($q, $http, CommonProp, CONFIG, $filter) {
     this.baseUrl = CONFIG.INBOX.baseUrl;
-    this.url = 'http://172.16.65.3/inbox/set';
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
 

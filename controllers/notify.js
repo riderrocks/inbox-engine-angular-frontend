@@ -4,25 +4,13 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
         templateUrl: 'views/notify.html',
         // controller: 'NotifyCtrl'
     });
-}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', 'UserNotificationService', 'CommonProp', function($scope, $http, $filter, $firebase, $location, UserNotificationService, CommonProp) {
-
-    var notifications = UserNotificationService.getAllNotifications();
-    $scope.notViewedCount = 0;
-
-    notifications.then(function(notification) {
+}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', 'UserNotificationService', 'CommonProp','CONFIG', function($scope, $http, $filter, $firebase, $location, UserNotificationService, CommonProp, CONFIG) {
+    UserNotificationService.getAllNotifications().then(function(notification) {
         $scope.notifications = notification;
-        $scope.notViewedCount = UserNotificationService.updateNotViewedCount($scope.notifications);
     });
-
-    // $scope.updateNotViewedCount = function() {
-    //     $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
-    //         viewed: false
-    //     }).length;
-    // }
-
+    $scope.baseUrl = CONFIG.INBOX.baseUrl;
     var userId = CommonProp.getUserId();
     var apiName = '';
-
     $scope.markNotificationAsViewed = function(notification) {
         var data = {
             'appCode': 'WEBIN',
@@ -38,7 +26,6 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
             data.viewedAnnouncements = notification.id;
             apiName = 'get';
         }
-        console.log(data);
 
         $scope.ajaxCall(data, apiName, notification);
     }
@@ -72,7 +59,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
     $scope.ajaxCall = function(data, apiName, notification) {
         $http({
             method: 'POST',
-            url: "http://172.16.66.81:6633/inbox/" + apiName,
+            url: $scope.baseUrl+"inbox/" + apiName,
             data: data
         }).then(function successCallback() {
             if (notification) {
@@ -82,7 +69,6 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
                     notification.viewed = true;
                 });
             }
-            $scope.notViewedCount = UserNotificationService.updateNotViewedCount($scope.notifications);
         });
     }
 }]);
