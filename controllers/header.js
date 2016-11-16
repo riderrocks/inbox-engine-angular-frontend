@@ -8,15 +8,5 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         CommonProp.logoutUser();
     }
 
-    var notifications = UserNotificationService.getAllNotifications();
-    notifications.then(function(notification) {
-        $scope.notifications = notification;
-        $scope.updateNotViewedCount();
-    });
 
-    $scope.updateNotViewedCount = function() {
-    	$scope.notViewedCount = $filter('filter')($scope.notifications.data, {
-            viewed: false
-        }).length;
-    }
 }]);
