@@ -7,6 +7,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
 }]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', 'UserNotificationService', 'CommonProp', function($scope, $http, $filter, $firebase, $location, UserNotificationService, CommonProp) {
 
     var notifications = UserNotificationService.getAllNotifications();
+    $scope.notViewedCount = 0;
 
     notifications.then(function(notification) {
         $scope.notifications = notification;
@@ -37,11 +38,13 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
             data.viewedAnnouncements = notification.id;
             apiName = 'get';
         }
+        console.log(data);
 
         $scope.ajaxCall(data, apiName, notification);
     }
 
     $scope.markAllNotificationAsViewed = function() {
+    	
         var notificationsToMark = $filter('filter')($scope.notifications.data, {
             isNotification: false
         });
@@ -57,6 +60,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
             'memberId': userId,
             'regionCode': 'MUM'
         };
+        console.log(data);
 
         apiName = 'get';
 
@@ -68,7 +72,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
     $scope.ajaxCall = function(data, apiName, notification) {
         $http({
             method: 'POST',
-            url: "http://172.16.65.3/inbox/" + apiName,
+            url: "http://172.16.66.81:6633/inbox/" + apiName,
             data: data
         }).then(function successCallback() {
             if (notification) {
