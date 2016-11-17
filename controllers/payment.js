@@ -19,8 +19,8 @@ angular.module('myApp.payment', ['ngRoute', 'ui.bootstrap']).config(['$routeProv
         user.userId = CommonProp.getUserId();
         user.userEmail = CommonProp.getUser();
         IsService.bookMovie(movie, user).then(function successCallback(response) {
-            $window.location.reload();
-            $location.path('/notify');
+            // $window.location.reload();
+            // $location.path('/notify');
         }, function errorCallback(response) {
 
         });
