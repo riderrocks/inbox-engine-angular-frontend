@@ -13,11 +13,11 @@
                             <img ng-src="images/Bell-icon.png">
                         </div>
                         <div class="col-md-9">
-                            <strong class="title">{{i.shortTxt}}</strong>
-                            <sup ng-class="i.viewed==false?'new':'old'">New</sup>
+                            <div><strong class="title">{{i.shortTxt}}</strong></div>
+                            <div><sup ng-class="i.viewed==false?'new':'old'">New</sup></div>
                             <!-- <a style='float:right;margin-right: 5px;'>X</a> -->
-                            <small class="msg">{{i.longTxt}}</small>
-                            <small class="date">{{i.createdOn}}</small>
+                            <div><small class="msg">{{i.longTxt}}</small></div>
+                            <div><small class="date">{{i.createdOn}}</small></div>
                         </div>
                     </div>
                 </li>

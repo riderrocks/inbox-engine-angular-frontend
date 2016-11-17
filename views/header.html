@@ -29,10 +29,10 @@
                                     </div>
                                     <div class="col-md-9">
                                         <span class="cross glyphicon glyphicon-remove" ng-click="SoftDelete(notifications.data, $index)"></span>
-                                        <strong class="title">{{i.shortTxt}}</strong>
-                                        <sup ng-class="i.viewed==false?'new':'old'">New</sup>
-                                        <small class="msg">{{i.longTxt}}</small>
-                                        <small class="date">{{i.createdOn}}</small>
+                                        <div><strong class="title">{{i.shortTxt}}</strong></div>
+                                        <div><sup ng-class="i.viewed==false?'new':'old'">New</sup></div>
+                                        <div><small class="msg">{{i.longTxt}}</small></div>
+                                        <div><small class="date">{{i.createdOn}}</small></div>
                                     </div>
                                 </div>
                             </li>
