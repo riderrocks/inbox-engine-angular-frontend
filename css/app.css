@@ -1,3 +1,4 @@
+:
 /* 16 nov 2016
 changes line 4-32,108,302
 */
@@ -86,6 +87,11 @@ strong,
     background-color: #1f2533;
     -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
     box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
+}
+
+.blog-nav {
+    z-index: 2;
+    position: relative;
 }
 
 .blog-nav-item {
@@ -434,6 +440,13 @@ span.paymentPrice {
     margin-left: 5px;
 }
 
+#markAll {
+    font-size: 11px;
+    margin-top: 1%;
+    margin-left: 18%;
+    position: absolute;
+}
+
 .headder_footer {
     text-align: center;
     font-weight: bold;
@@ -445,17 +458,14 @@ span.paymentPrice {
 
 .headder_footer a {
     color: #333;
-    text-decoration: none;
 }
 
 .headder_footer a:hover {
     color: #333;
-    text-decoration: none;
 }
 
 .headder_footer a:visited {
     background-color: #333;
-    text-decoration: none;
 }
 
 .cross {
@@ -481,7 +491,7 @@ span.paymentPrice {
 }
 
 .select-overlay {
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .81);
     position: fixed;
     top: 0;
     bottom: 0;

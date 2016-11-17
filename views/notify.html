@@ -3,25 +3,24 @@
     <div class='oldOutContainer' ng-repeat="i in notifications.data">
         <ul class='outUl'>
             <a href="{{i.callToAction}}" target='_blank'>
-            <a target='_blank'>
-                <li id="{{i.id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
-                    <div class="row">
-                        <div class="col-md-3" ng-if="i.imgURL">
-                            <img ng-src="{{i.imgURL}}" class="outImg">
+                <a target='_blank'>
+                    <li id="{{i.id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
+                        <div class="row">
+                            <div class="col-md-3" ng-if="i.imgURL">
+                                <img ng-src="{{i.imgURL}}" class="outImg">
+                            </div>
+                            <div class="col-md-3" ng-if="!i.imgURL">
+                                <img ng-src="images/Bell-icon.png">
+                            </div>
+                            <div class="col-md-9">
+                                <div><strong class="title">{{i.shortTxt}}</strong> </div>
+                                <div><sup ng-class="i.viewed==false?'new':'old'">New</sup> </div>
+                                <div><small class="msg">{{i.longTxt}}</small> </div>
+                                <div><small class="date">{{i.createdOn}}</small> </div>
+                            </div>
                         </div>
-                        <div class="col-md-3" ng-if="!i.imgURL">
-                            <img ng-src="images/Bell-icon.png">
-                        </div>
-                        <div class="col-md-9">
-                            <strong class="title">{{i.shortTxt}}</strong>
-                            <sup ng-class="i.viewed==false?'new':'old'">New</sup>
-                            <!-- <a style='float:right;margin-right: 5px;'>X</a> -->
-                            <small class="msg">{{i.longTxt}}</small>
-                            <small class="date">{{i.createdOn}}</small>
-                        </div>
-                    </div>
-                </li>
-            </a>
+                    </li>
+                </a>
         </ul>
     </div>
 </div>

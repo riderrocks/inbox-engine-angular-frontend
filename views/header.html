@@ -7,36 +7,36 @@
                 <a class="blog-nav-item" ng-class="{active : isRouteActive('/payment/:id')}" href="#/payment/:id">Payment</a>
                 <a class="blog-nav-item blog-nav-item-right" href="#" ng-click="logout();">Logout</a>
                 <a class="blog-nav-item blog-nav-item-right" ng-class="{active: isRouteActive('/profile')}" href="#/profile"><span class="glyphicon glyphicon-user"></span></a>
-                <a class="blog-nav-item blog-nav-item-right pos-demo" ng-click='markAllNotificationAsViewed();ShowHide()'>
+                <a class="blog-nav-item blog-nav-item-right pos-demo" ng-click='ShowHide()'>
                     <span class="glyphicon glyphicon-bell"></span><span id='notification_count' ng-if='notViewedCount>0'>{{notViewedCount}}</span>
                 </a>
             </nav>
         </div>
         <div ng-show="IsVisible" class="inbox_container">
-            <div class="headder_footer">Notification</div>
+            <div class="headder_footer"><span>Notification</span><a id="markAll" ng-click="markAllNotificationAsViewed();" href="">Mark all as read</a></div>
             <div class="inbox">
                 <div class='outContainer' ng-repeat="i in notifications.data">
                     <ul class='outUl'>
-                        <a href="{{i.callToAction}}" target='_blank'></a>
-                        <a target='_blank'>
-                            <li id="{{id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
-                                <div class="movie row">
-                                    <div class="col-md-3" ng-if="i.imgURL">
-                                        <img ng-src="{{i.imgURL}}" class="outImg">
+                        <a href="{{i.callToAction}}" target='_blank'>
+                            <a target='_blank'>
+                                <li id="{{i.id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
+                                    <div class="row">
+                                        <div class="col-md-3" ng-if="i.imgURL">
+                                            <img ng-src="{{i.imgURL}}" class="outImg">
+                                        </div>
+                                        <div class="col-md-3" ng-if="!i.imgURL">
+                                            <img ng-src="images/Bell-icon.png">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <span class="cross glyphicon glyphicon-remove" ng-click="SoftDelete(notifications.data, $index)"></span>
+                                            <div><strong class="title">{{i.shortTxt}}</strong> </div>
+                                            <div><sup ng-class="i.viewed==false?'new':'old'">New</sup> </div>
+                                            <div><small class="msg">{{i.longTxt}}</small> </div>
+                                            <div><small class="date">{{i.createdOn}}</small> </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3" ng-if="!i.imgURL">
-                                        <img ng-src="images/Bell-icon.png">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <span class="cross glyphicon glyphicon-remove" ng-click="SoftDelete(notifications.data, $index)"></span>
-                                        <strong class="title">{{i.shortTxt}}</strong>
-                                        <sup ng-class="i.viewed==false?'new':'old'">New</sup>
-                                        <small class="msg">{{i.longTxt}}</small>
-                                        <small class="date">{{i.createdOn}}</small>
-                                    </div>
-                                </div>
-                            </li>
-                        </a>
+                                </li>
+                            </a>
                     </ul>
                 </div>
             </div>
