@@ -14,7 +14,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         movie.location = 'INOX: Garuda Mall, Magrath Road';
         movie.seatInfo = 'PREMIER';
         movie.screen = 'SCREEN 1';
-        movie.callToAction = '';
+        movie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/mukunda-murari/ET00048024';
         movies.push(movie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030171';
@@ -28,7 +28,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.seatInfo = 'DIAMOND';
         newMovie.screen = 'AUDI 1';
         newMovie.dateShowTime = '17/11/2016 4:25pm';
-        newMovie.callToAction = '';
+        newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/the-conjuring/ET00014420';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030172';
@@ -42,7 +42,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.seatInfo = 'PREMIER';
         newMovie.screen = 'SCREEN 5';
         newMovie.dateShowTime = '19/11/2016 5:30pm';
-        newMovie.callToAction = '';
+        newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/thithi/ET00041598';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030173';
@@ -56,7 +56,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'AUDI 2';
         newMovie.dateShowTime = '20-11-2016 10:30am';
-        newMovie.callToAction = '';
+        newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/pink/ET00039892';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030174';
@@ -70,7 +70,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'SCREEN 7';
         newMovie.dateShowTime = '19-11-2016 2:30pm';
-        newMovie.callToAction = '';
+        newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/ki-ka/ET00035932';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030175';
@@ -97,7 +97,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '120';
         newMovie.seatInfo = 'PREMIER';
         newMovie.screen = 'SCREEN 3';
-        newMovie.callToAction = '';
+        newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/chakravyuha/ET00017703';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030177';
@@ -110,7 +110,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '200';
         newMovie.seatInfo = 'DIAMOND';
         newMovie.screen = 'AUDI 2';
-        newMovie.callToAction = '';
+        newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/10-cloverfield-lane/ET00039119';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030178';
@@ -123,7 +123,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '200';
         newMovie.seatInfo = 'DIAMOND';
         newMovie.screen = 'AUDI 4';
-        newMovie.callToAction = '';
+        newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/central-intelligence/ET00036163';
         movies.push(newMovie);
         return movies;
     };
