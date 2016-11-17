@@ -440,7 +440,8 @@ span.paymentPrice {
     margin-left: 5px;
 }
 
-#markAll {
+#markAll
+ {
     font-size: 11px;
     margin-top: 1%;
     margin-left: 18%;
@@ -498,4 +499,9 @@ span.paymentPrice {
     left: 0;
     right: 0;
     z-index: 1;
+}
+
+.blog-nav {
+   z-index: 2;
+   position: relative;
 }

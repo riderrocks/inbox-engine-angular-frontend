@@ -36,7 +36,7 @@
                         </table>
                     </font>
                     <span class="paymentPrice"><font color='black'>Price per ticket: {{movie.price}} Quantity:</font></span>
-                    <input type="text" name="quantity" ng-model="movie.quantity">
+                    <input type="number" name="quantity" ng-model="movie.quantity">
                     <span ng-if="quantity > 0"><font color='black'> Total {{ quantity * movie.price}}</font></span>
                     <a class="btn book" ng-click='bookMovie(movie)'>Pay now</a>
                 </div>
