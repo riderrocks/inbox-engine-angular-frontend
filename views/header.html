@@ -18,8 +18,7 @@
             <div class="inbox">
                 <div class='outContainer' ng-repeat="i in notifications.data">
                     <ul class='outUl'>
-                        <a href="{{i.callToAction}}" target='_blank'></a>
-                        <a target='_blank'>
+                        <a href="{{i.callToAction}}" target='_blank'>
                             <li id="{{id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
                                 <div class="movie row">
                                     <div class="col-md-3" ng-if="i.imgURL">
