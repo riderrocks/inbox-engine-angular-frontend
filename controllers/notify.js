@@ -4,7 +4,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
         templateUrl: 'views/notify.html',
         // controller: 'NotifyCtrl'
     });
-}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', 'UserNotificationService', 'CommonProp','CONFIG', function($scope, $http, $filter, $firebase, $location, UserNotificationService, CommonProp, CONFIG) {
+}]).controller('NotifyCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', '$window', 'UserNotificationService', 'CommonProp', 'CONFIG', function($scope, $http, $filter, $firebase, $location, $window, UserNotificationService, CommonProp, CONFIG) {
     UserNotificationService.getAllNotifications().then(function(notification) {
         $scope.notifications = notification;
     });
@@ -26,12 +26,11 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
             data.viewedAnnouncements = notification.id;
             apiName = 'get';
         }
-
         $scope.ajaxCall(data, apiName, notification);
     }
 
     $scope.markAllNotificationAsViewed = function() {
-    	
+
         var notificationsToMark = $filter('filter')($scope.notifications.data, {
             isNotification: false
         });
@@ -41,6 +40,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
         angular.forEach(notificationsToMark, function(notification, key) {
             idsToMark.push(notification.id);
         }, idsToMark);
+
 
         var data = {
             'appCode': 'WEBIN',
@@ -56,10 +56,11 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
         $scope.ajaxCall(data, apiName, null);
     }
 
+
     $scope.ajaxCall = function(data, apiName, notification) {
         $http({
             method: 'POST',
-            url: $scope.baseUrl+"inbox/" + apiName,
+            url: $scope.baseUrl + "inbox/" + apiName,
             data: data
         }).then(function successCallback() {
             if (notification) {
@@ -69,6 +70,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
                     notification.viewed = true;
                 });
             }
+            $window.location.reload();
         });
     }
 }]);

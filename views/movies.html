@@ -12,8 +12,10 @@
                 <div class="genre-list" ng-repeat="genre in movie.genres">
                     <div class="__rounded-box __genre">{{genre}}</div>
                 </div>
-                <div class="row location"> 
-                <p><font color="black">{{movie.location}}</font></p>
+                <div class="row location">
+                    <p>
+                        <font color="black">{{movie.location}}</font>
+                    </p>
                 </div>
                 <div>
                     <a class="btn book" ng-href="{{movie.booknow}}">Book</a>

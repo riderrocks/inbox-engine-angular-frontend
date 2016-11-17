@@ -1,3 +1,7 @@
+/* 16 nov 2016
+changes line 4-32,108,302
+*/
+
 @font-face {
     font-family: 'montserratbold';
     src: url('../fonts/montserrat-bold-webfont.eot');
@@ -294,6 +298,12 @@ form .progress {
     width: 400px;
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.oldOutContainer {
+    width: 400px;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
     margin-left: 606px;
 }
 
@@ -422,4 +432,60 @@ tr.paymentAmount {
 
 span.paymentPrice {
     margin-left: 5px;
+}
+
+.headder_footer {
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+    height: 29px;
+    color: #333;
+    margin-top: 1%;
+}
+
+.headder_footer a {
+    color: #333;
+    text-decoration: none;
+}
+
+.headder_footer a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.headder_footer a:visited {
+    background-color: #333;
+    text-decoration: none;
+}
+
+.cross {
+    position: absolute;
+    right: 5px;
+}
+
+.inbox {
+    overflow-y: scroll;
+    height: 413px;
+    width: 445px;
+}
+
+.inbox_container {
+    position: absolute;
+    right: 310px;
+    z-index: 2;
+    background: #fbf4f4;
+}
+
+.movie .row {
+    background-color: #eae9e7;
+}
+
+.select-overlay {
+    background-color: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
 }

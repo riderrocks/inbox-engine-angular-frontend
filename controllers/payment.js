@@ -1,10 +1,11 @@
 'use strict';
-angular.module('myApp.payment', ['ngRoute', 'ui.bootstrap']).config(['$routeProvider', function ($routeProvider) {
+angular.module('myApp.payment', ['ngRoute', 'ui.bootstrap']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/payment/:id', {
         templateUrl: 'views/payment.html',
         controller: 'PaymentPostCtrl'
     });
-}]).controller('PaymentPostCtrl', ['$scope', '$window', '$firebase', '$routeParams', '$location', 'CommonProp', 'MovieService','IsService', function ($scope, $window, $firebase, $routeParams, $location, CommonProp, MovieService, IsService) {
+
+}]).controller('PaymentPostCtrl', ['$scope', '$window', '$firebase', '$routeParams', '$location', 'CommonProp', 'MovieService', 'IsService', function($scope, $window, $firebase, $routeParams, $location, CommonProp, MovieService, IsService) {
     if (!CommonProp.getUser()) {
         $location.path('/home');
     }
@@ -13,9 +14,9 @@ angular.module('myApp.payment', ['ngRoute', 'ui.bootstrap']).config(['$routeProv
     $scope.isPaymentMade = false;
     $scope.movie = MovieService.getMovieDetails(param);
 
-    $scope.bookMovie = function (movie) {
+    $scope.bookMovie = function(movie) {
         $scope.isPaymentMade = true;
-        var user={};
+        var user = {};
         user.userId = CommonProp.getUserId();
         user.userEmail = CommonProp.getUser();
         IsService.bookMovie(movie, user).then(function successCallback(response) {
