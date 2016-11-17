@@ -1,5 +1,5 @@
-var SocketIoService = app.service('SocketIoService', ['$rootScope',function ($rootScope) {
-    var socket = io('ws://192.168.10.10:3000');
+var SocketIoService = app.service('SocketIoService', ['$rootScope','CONFIG',function ($rootScope,CONFIG) {
+    var socket = io(CONFIG.INBOX.socketUrl);
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
