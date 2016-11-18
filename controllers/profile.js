@@ -20,8 +20,8 @@ angular.module('myApp.profile', ['ngRoute']).config(['$routeProvider', function(
             lname: $scope.profile.lname,
             phno: $scope.profile.phno
         }).then(function(ref) {
-            swal("Done!", "Profile updated successfully", "success");
             login.loading = false;
+            swal("Done!", "Profile updated successfully", "success");
             $location.path('/movies');
         }, function(error) {
             login.loading = false;
@@ -37,8 +37,8 @@ angular.module('myApp.profile', ['ngRoute']).config(['$routeProvider', function(
             newPassword: $scope.profile.newPwd
         }, function(error) {
             if (error === null) {
-                swal("Done!", "Profile updated successfully", "success");
                 login.loading = false;
+                swal("Done!", "Profile updated successfully", "success");
                 $location.path('/movies');
             } else {
                 login.loading = false;

@@ -368,15 +368,16 @@ strong.title {
 
 small.msg {
     float: left;
+    font-size: small;
     padding: 8px;
     text-align: justify;
-    color: #707070;
+    color: black;  
 }
 
 small.date {
     float: left;
     padding: 15px 0 0 10px;
-    color: black;
+    color: #707070;
 }
 
 sup.new {
@@ -523,4 +524,21 @@ span.paymentPrice {
 .blog-nav {
    z-index: 2;
    position: relative;
+}
+
+.btn._more-info {
+    padding: 5px;
+    border: 1px solid #6077e9;
+    border-radius: 2px;
+    background: 0 0;
+    color: #6077e9;
+    font-size: small;
+    float: right;
+    margin-right: 10px;
+    letter-spacing: normal;
+}
+
+.btn._more-info:hover {
+    color: #fff;
+    background: #6077e9;
 }

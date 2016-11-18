@@ -10,46 +10,53 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     }
 
     var notifications = UserNotificationService.getAllNotifications();
+    var userId = CommonProp.getUserId();
     var method = '';
+    var apiName = '';
+    $scope.baseUrl = CONFIG.INBOX.baseUrl;
+    $scope.IsVisible = false;
 
     notifications.then(function(notification) {
         $scope.notifications = notification;
-        console.log($scope.notifications.data);
         $scope.updateNotViewedCount();
     });
-
 
     $scope.updateNotViewedCount = function() {
             $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
                 viewed: false
-
             }).length;
         }
         // to show and hide notification div
-    $scope.IsVisible = false;
 
     $scope.ShowHide = function() {
         $scope.IsVisible = $scope.IsVisible ? false : true;
     }
-    $scope.redirect = function() {
-        $location.path('/notify');
-    }
+   
     $scope.SoftDelete = function(array, index, notification) {
-            console.log(notification.id + notification.isNotification);
             array.splice(index, 1);
             apiName = 'softDelete';
             method = 'PUT';
-            $scope.ajaxCall( method, apiName, {_id:notification.id, isNotification : notification.isNotification }, null);
-    }
+            var data = {};
+            data.userId = CommonProp.getUserId();
+
+            if (notification.isNotification) {
+                data = {
+                    _id: notification.id,
+                    isNotification: notification.isNotification
+                };
+            } else {
+                data = {
+                    masterId: notification.id,
+                    isNotification: notification.isNotification,
+                    memberId: data.userId
+                };
+            }
+
+            $scope.ajaxCall(method, apiName, data, null);
+        }
         // adding code from Notify.js 16 Nov 2016
 
-    UserNotificationService.getAllNotifications().then(function(notification) {
-        $scope.notifications = notification;
-    });
-    $scope.baseUrl = CONFIG.INBOX.baseUrl;
-    var userId = CommonProp.getUserId();
-    var apiName = '';
-    $scope.markNotificationAsViewed = function(notification) {
+     $scope.markNotificationAsViewed = function(notification) {
         method = 'POST';
         if (!notification.viewed) {
             var data = {
@@ -59,7 +66,6 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
             };
 
             if (notification.isNotification) {
-                console.log("viewed");
                 data._id = notification.id;
                 data.flag = 'N';
                 apiName = 'viewed';
@@ -68,6 +74,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
                 apiName = 'get';
             }
             $scope.ajaxCall(method, apiName, data, notification);
+            window.open(notification.callToAction,'_blank');
         }
     }
 
@@ -89,7 +96,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
             'memberId': userId,
             'regionCode': 'MUM'
         };
-        
+
         method = 'POST';
         apiName = 'get';
 
@@ -98,16 +105,12 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         $scope.ajaxCall(method, apiName, data, null);
     }
 
-
     $scope.ajaxCall = function(method, apiName, data, notification) {
-        console.log(data);
-        console.log('DELETE notifications');
         $http({
             method: method,
             url: $scope.baseUrl + "inbox/" + apiName,
             data: data
         }).then(function successCallback() {
-            console.log('done check in db');
             if (notification) {
                 notification.viewed = true;
             } else {
