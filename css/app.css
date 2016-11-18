@@ -48,6 +48,7 @@ body {
     font-size: 14px !important;
     font-weight: normal;
     color: #555;
+    overflow-x: hidden; 
 }
 
 h1,
@@ -306,11 +307,21 @@ form .progress {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.oldOutContainer {
-    width: 400px;
-    margin: auto;
+.seeAllOutContainer {
+    width: 550px;
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: 606px;
+    margin-left: 200px;
+}
+
+.seeAllTitle {
+    font-size: 30px;
+}
+
+.seeAllGoBack {
+    text-decoration: underline !important;
+    color: #337ab7 !important;
+    font-weight: bold;
+    font-size: larger;
 }
 
 .outUl {
@@ -321,6 +332,14 @@ form .progress {
 
 .outLi {
     background-color: #fff;
+    margin-bottom: 4px;
+    font-size: 14px;
+    float: center;
+    float: none !important;
+}
+
+li.notViewed {
+    background-color: antiquewhite;
     margin-bottom: 4px;
     font-size: 14px;
     float: center;
@@ -449,12 +468,12 @@ span.paymentPrice {
 }
 
 .headder_footer {
+    background-color: #e9eaed;
     text-align: center;
     font-weight: bold;
+    padding: 8px;
     font-size: 17px;
-    height: 29px;
-    color: #333;
-    margin-top: 1%;
+    border-top: 1px solid #dddddd;
 }
 
 .headder_footer a {
@@ -471,7 +490,7 @@ span.paymentPrice {
 
 .cross {
     position: absolute;
-    right: 5px;
+    right: 26px;
 }
 
 .inbox {

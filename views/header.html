@@ -13,30 +13,31 @@
             </nav>
         </div>
         <div ng-show="IsVisible" class="inbox_container">
-            <div class="headder_footer"><span>Notification</span><a id="markAll" ng-click="markAllNotificationAsViewed();" href="">Mark all as read</a></div>
+            <div class="headder_footer"><span>Notification</span><!-- <a id="markAll" ng-click="markAllNotificationAsViewed();" href="">Mark all as read</a> --></div>
             <div class="inbox">
                 <div class='outContainer' ng-repeat="i in notifications.data">
                     <ul class='outUl'>
-                        <a href="{{i.callToAction}}" target='_blank'>
-                            <a target='_blank'></a>
-                            <li id="{{i.id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
+                        
+                            <li id="{{i.id}}" ng-class="i.viewed==false?'notViewed':'outLi'" ng-click="markNotificationAsViewed(i)">
                                 <div class="movie row">
                                     <div class="col-md-3" ng-if="i.imgURL">
+                                    <a href="{{i.callToAction}}" target='_blank'>
                                         <img ng-src="{{i.imgURL}}" class="outImg">
+                                        </a>
                                     </div>
                                     <div class="col-md-3" ng-if="!i.imgURL">
                                         <img ng-src="images/Bell-icon.png">
                                     </div>
                                     <div class="col-md-9">
-                                        <span class="cross glyphicon glyphicon-remove" ng-click="SoftDelete(notifications.data, $index)"></span>
-                                        <div><strong class="title">{{i.shortTxt}}</strong> </div>
+                                        <span class="cross glyphicon glyphicon-remove" ng-click="SoftDelete(notifications.data, $index, i);$event.stopPropagation();"></span>
+                                        <div><a href="{{i.callToAction}}" target='_blank'><strong class="title">{{i.shortTxt}}</strong></a></div>
                                         <div><sup ng-class="i.viewed==false?'new':'old'">New</sup> </div>
                                         <div><small class="msg">{{i.longTxt}}</small> </div>
                                         <div><small class="date">{{i.createdOn}}</small> </div>
                                     </div>
                                 </div>
                             </li>
-                        </a>
+            
                     </ul>
                 </div>
             </div>

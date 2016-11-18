@@ -1,26 +1,33 @@
 <div ng-controller="NotifyCtrl">
-    <div ng-include="'views/header.html'"></div>
-    <div class='oldOutContainer' ng-repeat="i in notifications.data">
-        <ul class='outUl'>
-            <a href="{{i.callToAction}}" target='_blank'>
-                <a target='_blank'></a>
-                <li id="{{i.id}}" class="outLi" ng-click="markNotificationAsViewed(i)">
+    <!-- <div ng-include="'views/header.html'"></div> -->
+    <a class='seeAllGoBack' href="#/movies">Click here to go back</a>
+    <div class='seeAllOutContainer'>
+        <p class="seeAllTitle">
+            <font color='black'>Your notifications</font>
+        </p>
+        <hr>
+        <div ng-repeat="i in notifications.data">
+            <ul class='outUl'>
+                <li id="{{i.id}}" ng-class="i.viewed==false?'notViewed':'outLi'" ng-click="markNotificationAsViewed(i)">
                     <div class="row">
                         <div class="col-md-3" ng-if="i.imgURL">
-                            <img ng-src="{{i.imgURL}}" class="outImg">
+                            <a href="{{i.callToAction}}" target='_blank'>
+                                <img ng-src="{{i.imgURL}}" class="outImg">
+                            </a>
                         </div>
                         <div class="col-md-3" ng-if="!i.imgURL">
                             <img ng-src="images/Bell-icon.png">
                         </div>
                         <div class="col-md-9">
-                            <div><strong class="title">{{i.shortTxt}}</strong></div>
+                            <span class="cross glyphicon glyphicon-remove" ng-click="SoftDelete(notifications.data, $index);$event.stopPropagation();"></span>
+                            <div><a href="{{i.callToAction}}" target='_blank'><strong class="title">{{i.shortTxt}}</strong></a></div>
                             <div><sup ng-class="i.viewed==false?'new':'old'">New</sup></div>
                             <div><small class="msg">{{i.longTxt}}</small></div>
                             <div><small class="date">{{i.createdOn}}</small></div>
                         </div>
                     </div>
                 </li>
-            </a>
-        </ul>
+            </ul>
+        </div>
     </div>
 </div>

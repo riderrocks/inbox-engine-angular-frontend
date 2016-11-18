@@ -11,6 +11,12 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
     $scope.baseUrl = CONFIG.INBOX.baseUrl;
     var userId = CommonProp.getUserId();
     var apiName = '';
+
+    $scope.SoftDelete = function(array, index) {
+        alert();
+        array.splice(index, 1);
+    }
+
     $scope.markNotificationAsViewed = function(notification) {
         var data = {
             'appCode': 'WEBIN',

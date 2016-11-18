@@ -10,6 +10,8 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     }
 
     var notifications = UserNotificationService.getAllNotifications();
+    var method = '';
+
     notifications.then(function(notification) {
         $scope.notifications = notification;
         console.log($scope.notifications.data);
@@ -32,9 +34,13 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     $scope.redirect = function() {
         $location.path('/notify');
     }
-    $scope.SoftDelete = function(array, index) {
+    $scope.SoftDelete = function(array, index, notification) {
+            console.log(notification.id + notification.isNotification);
             array.splice(index, 1);
-        }
+            apiName = 'softDelete';
+            method = 'PUT';
+            $scope.ajaxCall( method, apiName, {_id:notification.id, isNotification : notification.isNotification }, null);
+    }
         // adding code from Notify.js 16 Nov 2016
 
     UserNotificationService.getAllNotifications().then(function(notification) {
@@ -44,22 +50,25 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     var userId = CommonProp.getUserId();
     var apiName = '';
     $scope.markNotificationAsViewed = function(notification) {
-        var data = {
-            'appCode': 'WEBIN',
-            'memberId': userId,
-            'regionCode': 'MUM'
-        };
+        method = 'POST';
+        if (!notification.viewed) {
+            var data = {
+                'appCode': 'WEBIN',
+                'memberId': userId,
+                'regionCode': 'MUM'
+            };
 
-        if (notification.isNotification) {
-            console.log("viewed");
-            data._id = notification.id;
-            data.flag = 'N';
-            apiName = 'viewed';
-        } else {
-            data.viewedAnnouncements = notification.id;
-            apiName = 'get';
+            if (notification.isNotification) {
+                console.log("viewed");
+                data._id = notification.id;
+                data.flag = 'N';
+                apiName = 'viewed';
+            } else {
+                data.viewedAnnouncements = notification.id;
+                apiName = 'get';
+            }
+            $scope.ajaxCall(method, apiName, data, notification);
         }
-        $scope.ajaxCall(data, apiName, notification);
     }
 
     $scope.markAllNotificationAsViewed = function() {
@@ -80,22 +89,25 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
             'memberId': userId,
             'regionCode': 'MUM'
         };
-        console.log(data);
-
+        
+        method = 'POST';
         apiName = 'get';
 
         data.viewedAnnouncements = idsToMark;
 
-        $scope.ajaxCall(data, apiName, null);
+        $scope.ajaxCall(method, apiName, data, null);
     }
 
 
-    $scope.ajaxCall = function(data, apiName, notification) {
+    $scope.ajaxCall = function(method, apiName, data, notification) {
+        console.log(data);
+        console.log('DELETE notifications');
         $http({
-            method: 'POST',
+            method: method,
             url: $scope.baseUrl + "inbox/" + apiName,
             data: data
         }).then(function successCallback() {
+            console.log('done check in db');
             if (notification) {
                 notification.viewed = true;
             } else {
@@ -104,5 +116,6 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
                 });
             }
         });
+        $window.location.reload();
     }
 }]);
