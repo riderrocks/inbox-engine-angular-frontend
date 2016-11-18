@@ -21,10 +21,6 @@ var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'm
         template: `<span id='notification_count' ng-if='notViewedCount>0'>{{notViewedCount}}</span>`,
         scope: true,
         link: function(scope, element, attrs) {
-            UserNotificationService.getAllNotifications().then(function(notifications) {
-                scope.notViewedCount = UserNotificationService.updateNotViewedCount(notifications);
-                scope.notifications = notifications;
-            });
             SocketIoService.on('notification', function (message) {
                 scope.notViewedCount +=1;
                 console.log(message);

@@ -8,7 +8,9 @@
                 <a class="blog-nav-item blog-nav-item-right" href="#" ng-click="logout();">Logout</a>
                 <a class="blog-nav-item blog-nav-item-right" ng-class="{active: isRouteActive('/profile')}" href="#/profile"><span class="glyphicon glyphicon-user"></span></a>
                 <a class="blog-nav-item blog-nav-item-right pos-demo" ng-click='ShowHide()'>
-                    <span class="glyphicon glyphicon-bell"></span><span id='notification_count' ng-if='notViewedCount>0'>{{notViewedCount}}</span>
+                    <span class="glyphicon glyphicon-bell"></span>
+                    <!--<span id='notification_count' ng-if='notViewedCount>0'>{{notViewedCount}}</span>-->
+                    <bell-notification></bell-notification>
                 </a>
             </nav>
         </div>
