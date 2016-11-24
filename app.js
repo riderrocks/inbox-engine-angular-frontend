@@ -1,4 +1,5 @@
 'use strict';
+
 var currentIp = '172.16.65.3';
 var inboxUrl = 'http://' + currentIp + ':6633/';
 var socketUrl = 'ws://' + currentIp + ':3000';
