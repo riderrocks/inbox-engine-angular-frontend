@@ -50,7 +50,6 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
                 memberId: data.userId
             };
         }
-
         $scope.ajaxCall(method, apiName, data, null);
     }
 
