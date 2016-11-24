@@ -8,11 +8,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     $scope.logout = function() {
         CommonProp.logoutUser();
     }
-    if (isPushEnabled) {
-        unsubscribe();
-    } else if(localStorage.userId) {
-        subscribe();
-    }
+
     var notifications = UserNotificationService.getAllNotifications();
     var userId = CommonProp.getUserId();
     var method = '';
@@ -26,41 +22,39 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     });
 
     $scope.updateNotViewedCount = function() {
-            $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
-                viewed: false
-            }).length;
-        }
-        // to show and hide notification div
+        $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
+            viewed: false
+        }).length;
+    }
 
     $scope.ShowHide = function() {
         $scope.IsVisible = $scope.IsVisible ? false : true;
     }
-   
+
     $scope.SoftDelete = function(array, index, notification) {
-            array.splice(index, 1);
-            apiName = 'softDelete';
-            method = 'PUT';
-            var data = {};
-            data.userId = CommonProp.getUserId();
+        array.splice(index, 1);
+        method = 'PUT';
+        apiName = 'softDelete';
+        var data = {};
+        data.userId = CommonProp.getUserId();
 
-            if (notification.isNotification) {
-                data = {
-                    _id: notification.id,
-                    isNotification: notification.isNotification
-                };
-            } else {
-                data = {
-                    masterId: notification.id,
-                    isNotification: notification.isNotification,
-                    memberId: data.userId
-                };
-            }
-
-            $scope.ajaxCall(method, apiName, data, null);
+        if (notification.isNotification) {
+            data = {
+                _id: notification.id,
+                isNotification: notification.isNotification
+            };
+        } else {
+            data = {
+                masterId: notification.id,
+                isNotification: notification.isNotification,
+                memberId: data.userId
+            };
         }
-        // adding code from Notify.js 16 Nov 2016
 
-     $scope.markNotificationAsViewed = function(notification) {
+        $scope.ajaxCall(method, apiName, data, null);
+    }
+
+    $scope.markNotificationAsViewed = function(notification) {
         method = 'POST';
         if (!notification.viewed) {
             var data = {
@@ -78,7 +72,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
                 apiName = 'get';
             }
             $scope.ajaxCall(method, apiName, data, notification);
-            window.open(notification.callToAction,'_blank');
+            window.open(notification.callToAction, '_blank');
         }
     }
 
@@ -124,5 +118,28 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
             }
         });
         $window.location.reload();
+    }
+
+    /*************************Sending Subsciption Id to Server*********************************/
+    if (isPushEnabled) {
+        unsubscribe();
+    } else if (localStorage.userId) {
+        subscribe();
+    }
+
+    if (isPushEnabled) {
+        var data = {
+            "flag": "F",
+            "memberId": localStorage.userId,
+            "registrationId": localStorage.subscriptionId,
+            "userAgent": "chrome"
+        };
+        $http({
+            method: "POST",
+            url: 'https://inboxbhargava.fwd.wf/inbox/set',
+            data: data
+        }).then(function successCallback(response) {
+            console.log(response);
+        });
     }
 }]);

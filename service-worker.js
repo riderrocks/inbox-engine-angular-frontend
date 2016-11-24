@@ -15,7 +15,7 @@ self.addEventListener('push', function (event) {
     //     tag: tag
     //   })
     // );
-    event.waitUntil(fetch('https://inbox-engine.app/inbox/announcement-latest').then(function (response) {
+    event.waitUntil(fetch('https://mkp-inboxnotification.fwd.wf/inbox/announcement-latest').then(function (response) {
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
                 response.status);

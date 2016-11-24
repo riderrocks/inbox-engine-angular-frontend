@@ -1,5 +1,5 @@
 'use strict';
-var inboxUrl = 'https://inbox-engine.app/';
+var inboxUrl = 'https://mkp-inboxnotification.fwd.wf/';
 var socketUrl = 'wss://socket-io.app';
 var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'myApp.header', 'myApp.movies', 'myApp.payment', 'myApp.notify', 'myApp.profile']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({
