@@ -1,7 +1,6 @@
 'use strict';
-var currentIp = '172.16.65.3';
-var inboxUrl = 'http://'+currentIp+':6633/';
-var socketUrl = 'ws://'+currentIp+':3000';
+var inboxUrl = 'https://inbox-engine.app/';
+var socketUrl = 'wss://socket-io.app';
 var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'myApp.header', 'myApp.movies', 'myApp.payment', 'myApp.notify', 'myApp.profile']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({
         redirectTo: '/home'

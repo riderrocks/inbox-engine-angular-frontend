@@ -1,10 +1,10 @@
-var MovieService = app.service('MovieService', ['UserNotificationService', function(UserNotificationService) {
-    this.getMoviesForBooking = function() {
+var MovieService = app.service('MovieService', ['UserNotificationService', function (UserNotificationService) {
+    this.getMoviesForBooking = function () {
         var movie = {};
         var movies = [];
         movie.id = 'ET00030170';
         movie.title = 'Rangitaranga';
-        movie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00030170.jpg';
+        movie.imgUrl = 'https://in.bmscdn.com/iedb/movies/images/website/poster/large/ET00017703.jpg';
         movie.venue = 'Inox Garuda Mall';
         movie.dateShowTime = new Date();
         movie.price = '120';
@@ -19,7 +19,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030171';
         newMovie.title = 'The Conjuring';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00035685.jpg';
+        // newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00035685.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'English';
         newMovie.genres = ['Horror', 'Mystery', 'Thriller'];
@@ -33,7 +33,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030172';
         newMovie.title = 'Thithi';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00041598.jpg';
+        // newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00041598.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'Kannada';
         newMovie.genres = ['Drama'];
@@ -47,7 +47,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030173';
         newMovie.title = 'Pink';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00039895.jpg';
+        // newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00039895.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'Hindi';
         newMovie.genres = ['Drama', 'Thriller'];
@@ -61,7 +61,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030174';
         newMovie.title = 'Ki & Ka';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00035932.jpg';
+        // newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00035932.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'Hindi';
         newMovie.genres = ['Comedy', 'Romance'];
@@ -75,7 +75,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030175';
         newMovie.title = 'Rustom';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00035722.jpg';
+        // newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00035722.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'Hindi';
         newMovie.genres = ['Crime', 'Drama', 'Thriller'];
@@ -89,7 +89,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030176';
         newMovie.title = 'Chakravryuha';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00017703.jpg';
+        // newMovie.imgUrl = 'https://in.bmscdn.com/iedb/movies/images/website/poster/large/ET00017703.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'Kannada';
         newMovie.genres = ['Action', 'Comedy', 'Thriller'];
@@ -102,7 +102,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030177';
         newMovie.title = '10 Cloverfield Lane';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00039119.jpg';
+        // newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00039119.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'English';
         newMovie.genres = ['Drama', 'Horror', 'Mystery'];
@@ -115,7 +115,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie = angular.copy(movie);
         newMovie.id = 'ET00030178';
         newMovie.title = 'Central Intelligence';
-        newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00036163.jpg';
+        // newMovie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00036163.jpg';
         newMovie.booknow = '#/payment/' + newMovie.id;
         newMovie.language = 'English';
         newMovie.genres = ['Action', 'Comedy', 'Crime'];
@@ -127,17 +127,17 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         movies.push(newMovie);
         return movies;
     };
-    this.getMovieDetails = function(movieId) {
+    this.getMovieDetails = function (movieId) {
         movies = this.getMoviesForBooking();
         var movie = {};
-        angular.forEach(movies, function(value, key) {
+        angular.forEach(movies, function (value, key) {
             if (value && value.id == movieId) {
                 movie = value;
             }
         }, movie, movieId);
         return movie;
     };
-    this.bookMovie = function(movie) {
+    this.bookMovie = function (movie) {
         UserNotificationService.notifyBookMovie(movie);
     }
 }]);

@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" href="images/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon.ico" sizes="32x32"/>
     <title>My AngularJS App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/please-wait/build/please-wait.css">
-    <link rel="stylesheet" href="bower_components/please-wait/build/default.css">
     <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/ladda.min.css">
+    <link rel="manifest" href="./fcm/manifest.json">
 </head>
-
 <body>
-    <div ng-view></div>
-    <script src="bower_components/please-wait/build/please-wait.js"></script>
-    <script src="lib/loadingStart.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
-    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
-    
-     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
-
-    <script src="lib/jquery-2.0.1.min.js"></script>
-    <script src="lib/bootstrap/3.3.4/bootstrap.min.js"></script>
-    <script src="lib/firebase/2.0.4/firebase.js"></script>
-    <script src="lib/angularfire/0.9.0/angularfire.min.js"></script>
-    <script src="lib/simple-login/1.6.2/firebase-simple-login.js"></script>
-    <script src="lib/spin.min.js"></script>
-    <script src="lib/ladda.min.js"></script>
-    <script src="app.js"></script>
-    <script src="services/movieService.js"></script>
-    <script src="services/isService.js"></script>
-    <script src="services/userNotificationService.js"></script>
-    <script src="services/commonProp.js"></script>
-    <script src="services/socketIoService.js"></script>
-    <script src="controllers/register.js"></script>
-    <script src="controllers/home.js"></script>
-    <script src="controllers/movies.js"></script>
-    <script src="controllers/header.js"></script>
-    <script src="controllers/payment.js"></script>
-    <script src="controllers/notify.js"></script>
-    <script src="controllers/profile.js"></script>
-    <script src="lib/loadingStop.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.1/socket.io.js"></script>
+<div ng-view></div>
+<script src="bower_components/please-wait/build/please-wait.js"></script>
+<script src="lib/loadingStart.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
+<script src="lib/jquery-2.0.1.min.js"></script>
+<script src="lib/bootstrap/3.3.4/bootstrap.min.js"></script>
+<script src="lib/firebase/2.0.4/firebase.js"></script>
+<script src="lib/angularfire/0.9.0/angularfire.min.js"></script>
+<script src="lib/simple-login/1.6.2/firebase-simple-login.js"></script>
+<script src="lib/spin.min.js"></script>
+<script src="lib/ladda.min.js"></script>
+<script src="app.js"></script>
+<script src="services/movieService.js"></script>
+<script src="services/isService.js"></script>
+<script src="services/userNotificationService.js"></script>
+<script src="services/commonProp.js"></script>
+<script src="services/socketIoService.js"></script>
+<script src="controllers/register.js"></script>
+<script src="controllers/home.js"></script>
+<script src="controllers/movies.js"></script>
+<script src="controllers/header.js"></script>
+<script src="controllers/payment.js"></script>
+<script src="controllers/notify.js"></script>
+<script src="controllers/profile.js"></script>
+<script src="lib/loadingStop.js"></script>
+<script src="./fcm/config.js"></script>
+<script src="./fcm/main.js"></script>
+<!--<script src="lib/notification/firefoxPushNotification.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.1/socket.io.js"></script>
 </body>
-
 </html>

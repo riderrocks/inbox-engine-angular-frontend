@@ -1,9 +1,9 @@
-var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', 'CONFIG', '$filter', function($q, $http, CommonProp, CONFIG, $filter) {
+var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', 'CONFIG', '$filter', function ($q, $http, CommonProp, CONFIG, $filter) {
     this.baseUrl = CONFIG.INBOX.baseUrl;
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
 
-    this.notifyBookMovie = function(movie) {
+    this.notifyBookMovie = function (movie) {
         var notification = {
             "shortTxt": movie.title || movie.arrET[0].Event_strTitle,
             "createdOn": "2015-07-18T16:16:39.669Z",
@@ -43,7 +43,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         });
     }
 
-    this.prepareData = function(data, isNotification) {
+    this.prepareData = function (data, isNotification) {
         var announcement = [];
         var mongoIdArray = {};
         var response_id = [];
@@ -69,7 +69,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return mongoIdArray;
     }
 
-    this.getAllNotifications = function() {
+    this.getAllNotifications = function () {
         currentObject = this;
         var announcement_ids = [];
         var notification_ids = [];
@@ -85,11 +85,29 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         }).then(function successCallback(response) {
             var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements, false), currentObject.prepareData(response.data.notifications, true));
             defer.resolve(notifications);
+
         });
         return defer.promise;
     }
 
-    this.concatAnnouncementAndNotifications = function(announcement, notification) {
+    this.setSubscription = function (memberId, registrationId) {
+        var defer = $q.defer();
+        $http({
+            method: 'POST',
+            url: this.baseUrl + "inbox/set",
+            data: {
+                "flag": "F",
+                "memberId": memberId,
+                "registrationId": registrationId,
+                "userAgent": "chrome"
+            }
+        }).then(function successCallback(response) {
+            defer.resolve(response);
+        });
+        return defer.promise;
+    }
+
+    this.concatAnnouncementAndNotifications = function (announcement, notification) {
         for (var i = 0; i < announcement.data.length; i++) {
             notification.data.push(announcement.data[i]);
             notification.id.push(announcement.id[i]);
@@ -97,7 +115,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return notification;
     }
 
-    this.updateNotViewedCount = function(notifications) {
+    this.updateNotViewedCount = function (notifications) {
         var notViewedCount = $filter('filter')(notifications.data, {
             viewed: false
         }).length;
