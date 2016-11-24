@@ -18,7 +18,6 @@ function endpointWorkaround(pushSubscription) {
 }
 
 function sendSubscriptionToServer(subscription) {
-    console.log('TODO: Implement sendSubscriptionToServer()');
     var mergedEndpoint = endpointWorkaround(subscription);
     var endpointSections = mergedEndpoint.split('/');
     var subscriptionId = endpointSections[endpointSections.length - 1];
