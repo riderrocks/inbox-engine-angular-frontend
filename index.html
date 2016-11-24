@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" href="images/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon.ico" sizes="32x32"/>
     <title>My AngularJS App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="bower_components/please-wait/build/please-wait.css">
-    <link rel="stylesheet" href="bower_components/please-wait/build/default.css">
     <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/ladda.min.css">
+    <link rel="manifest" href="./fcm/manifest.json">
 </head>
-
 <body>
     <div ng-view></div>
     <script src="bower_components/please-wait/build/please-wait.js"></script>
@@ -46,8 +44,8 @@
     <script src="controllers/payment.js"></script>
     <script src="controllers/notify.js"></script>
     <script src="controllers/profile.js"></script>
-    <!-- <script src="lib/registerServiceWorker.js"></script> -->
     <script src="lib/loadingStop.js"></script>
+    <script src="./fcm/config.js"></script>
+    <script src="./fcm/main.js"></script>
 </body>
-
 </html>

@@ -8,7 +8,11 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     $scope.logout = function() {
         CommonProp.logoutUser();
     }
-
+    if (isPushEnabled) {
+        unsubscribe();
+    } else if(localStorage.userId) {
+        subscribe();
+    }
     var notifications = UserNotificationService.getAllNotifications();
     var userId = CommonProp.getUserId();
     var method = '';
