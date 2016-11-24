@@ -36,14 +36,14 @@ self.addEventListener('push', function (event) {
             var body = data.longTxt;
             var icon = 'images/bms.jpg';
             var tag = 'simple-push-demo-notification-tag';
-           // var badge = 3;
+          //  var badge = 3;
             var data = "33";
 
             return self.registration.showNotification(notificationTitle, {
                 body: body,
                 icon: icon,
                 tag: tag,
-            //    badge: badge,
+              //  badge: badge,
                 data: data
             });
         });
