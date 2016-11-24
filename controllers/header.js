@@ -31,7 +31,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     $scope.ShowHide = function() {
         $scope.IsVisible = $scope.IsVisible ? false : true;
     }
-   
+
     $scope.SoftDelete = function(array, index, notification) {
             array.splice(index, 1);
             apiName = 'softDelete';
@@ -56,7 +56,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         }
         // adding code from Notify.js 16 Nov 2016
 
-     $scope.markNotificationAsViewed = function(notification) {
+    $scope.markNotificationAsViewed = function(notification) {
         method = 'POST';
         if (!notification.viewed) {
             var data = {
@@ -74,7 +74,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
                 apiName = 'get';
             }
             $scope.ajaxCall(method, apiName, data, notification);
-            window.open(notification.callToAction,'_blank');
+            window.open(notification.callToAction, '_blank');
         }
     }
 

@@ -17,14 +17,14 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
             "appCodes": [{
                 "appCode": "WEBIN",
                 "callToAction": [{
-                    "text": "sample text",
+                    "text": "More Info",
                     "link": "http://in.bookmyshow.com/notifi/",
                     "target": "_target"
                 }]
             }, {
                 "appCode": "M4",
                 "callToAction": [{
-                    "text": "sample text",
+                    "text": "More Info",
                     "link": "http://in.bookmyshow.com/notifi/",
                     "target": "_target"
                 }]
@@ -49,6 +49,10 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         var response_id = [];
         var response_data = [];
         for (i = 0; i < data.length; i++) {
+            if (data[i].callToAction[0].text == '' || data[i].callToAction[0].text == 'sample text') {
+                data[i].callToAction[0].text = 'Learn More';
+            }
+
             announcement[i] = {
                 id: data[i]._id,
                 memberId: data[i].memberId ? data[i].memberId : null,
@@ -57,7 +61,9 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 longTxt: data[i].longTxt,
                 shortTxt: data[i].shortTxt,
                 viewed: data[i].viewed,
+                target: data[i].callToAction[0].target,
                 callToAction: data[i].callToAction[0].link,
+                text: data[i].callToAction[0].text,
                 isNotification: isNotification,
             };
             response_id.push(data[i]._id);
