@@ -28,7 +28,16 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     }
 
     $scope.ShowHide = function() {
-        $scope.IsVisible = $scope.IsVisible ? false : true;
+        if($scope.IsVisible==false){
+            var notifications = UserNotificationService.getAllNotifications();
+            notifications.then(function(notification) {
+                $scope.notifications = notification;
+                $scope.updateNotViewedCount();
+                $scope.IsVisible = $scope.IsVisible ? false : true;
+            });
+        }else{
+            $scope.IsVisible = $scope.IsVisible ? false : true;
+        }
     }
 
     $scope.SoftDelete = function(array, index, notification) {
