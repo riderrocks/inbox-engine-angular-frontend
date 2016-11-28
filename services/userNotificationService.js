@@ -96,7 +96,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return defer.promise;
     }
 
-    this.setSubscription = function (memberId, registrationId) {
+    this.setSubscription = function (memberId, registrationId, userAgent) {
         var defer = $q.defer();
         $http({
             method: 'POST',
@@ -105,7 +105,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "flag": "F",
                 "memberId": memberId,
                 "registrationId": registrationId,
-                "userAgent": "chrome"
+                "userAgent": userAgent ? userAgent :"chrome"
             }
         }).then(function successCallback(response) {
             defer.resolve(response);

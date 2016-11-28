@@ -127,27 +127,33 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         });
         $window.location.reload();
     }
-
+    if(localStorage.notification_subscribe == "true"){
+        if(localStorage.notification_userAgent === 'firefox') {
+            UserNotificationService.setSubscription(localStorage.userId, localStorage.notification_subscriptionId, localStorage.notification_userAgent);
+            console.log("inside");
+        }
+        localStorage.notification_subscribe = "false";
+    }
     /*************************Sending Subsciption Id to Server*********************************/
-    if (isPushEnabled) {
-        unsubscribe();
-    } else if (localStorage.userId) {
-        subscribe();
-    }
-
-    if (isPushEnabled) {
-        var data = {
-            "flag": "F",
-            "memberId": localStorage.userId,
-            "registrationId": localStorage.subscriptionId,
-            "userAgent": "chrome"
-        };
-        $http({
-            method: "POST",
-            url: 'https://inboxbhargava.fwd.wf/inbox/set',
-            data: data
-        }).then(function successCallback(response) {
-            console.log(response);
-        });
-    }
+    // if (isPushEnabled) {
+    //     unsubscribe();
+    // } else if (localStorage.userId) {
+    //     subscribe();
+    // }
+    //
+    // if (isPushEnabled) {
+    //     var data = {
+    //         "flag": "F",
+    //         "memberId": localStorage.userId,
+    //         "registrationId": localStorage.subscriptionId,
+    //         "userAgent": "chrome"
+    //     };
+    //     $http({
+    //         method: "POST",
+    //         url: 'https://inboxbhargava.fwd.wf/inbox/set',
+    //         data: data
+    //     }).then(function successCallback(response) {
+    //         console.log(response);
+    //     });
+    // }
 }]);
