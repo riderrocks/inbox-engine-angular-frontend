@@ -130,7 +130,6 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
 
     /*************************Sending Subsciption Id to Server*********************************/
 
-
     var browser = '';
     var browserVersion = 0;
 
@@ -169,5 +168,13 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         }).then(function successCallback(response) {
             console.log(response);
         });
+    }
+
+    if(localStorage.notification_subscribe == "true"){
+        if(localStorage.notification_userAgent === 'firefox') {
+            UserNotificationService.setSubscription(localStorage.userId, localStorage.notification_subscriptionId, localStorage.notification_userAgent);
+            console.log("inside");
+        }
+        localStorage.notification_subscribe = "false";
     }
 }]);
