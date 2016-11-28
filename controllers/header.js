@@ -120,22 +120,42 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     }
 
     /*************************Sending Subsciption Id to Server*********************************/
-    if (isPushEnabled) {
-        unsubscribe();
-    } else if (localStorage.userId) {
-        subscribe();
+
+
+    var browser = '';
+    var browserVersion = 0;
+
+    if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+        browser = 'Opera';
+    } else if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+        browser = 'MSIE';
+    } else if (/Navigator[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+        browser = 'Netscape';
+    } else if (/Chrome[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+        browser = 'Chrome';
+    } else if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+        browser = 'Safari';
+        /Version[\/\s](\d+\.\d+)/.test(navigator.userAgent);
+        browserVersion = new Number(RegExp.$1);
+    } else if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+        browser = 'Firefox';
     }
+    if (browserVersion === 0) {
+        browserVersion = parseFloat(new Number(RegExp.$1));
+    }
+    var userAgent = browser + "*" + browserVersion;
 
     if (isPushEnabled) {
         var data = {
             "flag": "F",
             "memberId": localStorage.userId,
             "registrationId": localStorage.subscriptionId,
-            "userAgent": "chrome"
+            "userAgent": userAgent,
+            "regionCode": "BENGALURU"
         };
         $http({
             method: "POST",
-            url: 'https://inboxbhargava.fwd.wf/inbox/set',
+            url: 'https://backend-inboxnotification.fwd.wf/inbox/set',
             data: data
         }).then(function successCallback(response) {
             console.log(response);

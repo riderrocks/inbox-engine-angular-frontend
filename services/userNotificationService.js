@@ -91,7 +91,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         }).then(function successCallback(response) {
             var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements, false), currentObject.prepareData(response.data.notifications, true));
             defer.resolve(notifications);
-
+            console.log(response);
         });
         return defer.promise;
     }

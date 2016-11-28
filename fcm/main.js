@@ -41,19 +41,19 @@ function showCurlCommand(mergedEndpoint) {
 }
 
 function unsubscribe() {
-    navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+    navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
         serviceWorkerRegistration.pushManager.getSubscription().then(
-            function (pushSubscription) {
+            function(pushSubscription) {
                 if (!pushSubscription) {
                     isPushEnabled = false;
                     return;
                 }
-                pushSubscription.unsubscribe().then(function () {
+                pushSubscription.unsubscribe().then(function() {
                     isPushEnabled = false;
-                }).catch(function (e) {
+                }).catch(function(e) {
                     console.error('Unsubscription error: ', e);
                 });
-            }).catch(function (e) {
+            }).catch(function(e) {
             console.error('Error thrown while unsubscribing from ' +
                 'push messaging.', e);
         });
@@ -61,13 +61,15 @@ function unsubscribe() {
 }
 
 function subscribe() {
-    navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
-        serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true})
-            .then(function (subscription) {
+    navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+        serviceWorkerRegistration.pushManager.subscribe({
+                userVisibleOnly: true
+            })
+            .then(function(subscription) {
                 isPushEnabled = true;
                 return sendSubscriptionToServer(subscription);
             })
-            .catch(function (e) {
+            .catch(function(e) {
                 if (Notification.permission === 'denied') {
                     console.error('Permission for Notifications was denied');
                 } else {
@@ -78,6 +80,7 @@ function subscribe() {
 }
 
 function initialiseState() {
+    console.log('called');
     if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
         console.error('Notifications aren\'t supported.');
         return;
@@ -90,22 +93,23 @@ function initialiseState() {
         console.error('Push messaging isn\'t supported.');
         return;
     }
-    navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+    navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
         serviceWorkerRegistration.pushManager.getSubscription()
-            .then(function (subscription) {
+            .then(function(subscription) {
                 if (!subscription) {
+                    subscribe();
                     return;
                 }
                 sendSubscriptionToServer(subscription);
                 isPushEnabled = true;
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 console.error('Error during getSubscription()', err);
             });
     });
 }
 
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js')
             .then(initialiseState);
