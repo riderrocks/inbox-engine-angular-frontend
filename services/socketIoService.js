@@ -1,5 +1,5 @@
 var SocketIoService = app.service('SocketIoService', ['$rootScope','CONFIG',function ($rootScope,CONFIG) {
-    var socket = io(CONFIG.INBOX.socketUrl, {path: '/socket-io/socket.io'});
+    var socket = io(CONFIG.INBOX.socketUrl, {transports: ['polling'], path: '/socket-io/socket.io'});
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
