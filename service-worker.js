@@ -1,5 +1,5 @@
 'use strict';
-
+var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
 self.addEventListener('push', function(event) {
     console.log('Received a push message', event);
 
@@ -14,7 +14,7 @@ self.addEventListener('push', function(event) {
     //     tag: tag,
     // });
 
-    event.waitUntil(fetch('https://backend-inboxnotification.fwd.wf/inbox/latestAnnouncement').then(function(response) {
+    event.waitUntil(fetch(inboxBaseUrl+'/inbox/latestAnnouncement').then(function(response) {
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
                 response.status);

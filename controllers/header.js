@@ -1,11 +1,11 @@
 'use strict';
-angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', '$window', 'UserNotificationService', 'CommonProp', 'CONFIG', function($scope, $http, $filter, $firebase, $location, $window, UserNotificationService, CommonProp, CONFIG) {
+angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', '$http', '$filter', '$firebase', '$location', '$window', 'UserNotificationService', 'CommonProp', 'CONFIG', function ($scope, $http, $filter, $firebase, $location, $window, UserNotificationService, CommonProp, CONFIG) {
 
-    $scope.isRouteActive = function(route) {
+    $scope.isRouteActive = function (route) {
         var curRoute = $location.path();
         return curRoute.match(route);
     }
-    $scope.logout = function() {
+    $scope.logout = function () {
         CommonProp.logoutUser();
     }
 
@@ -16,31 +16,31 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     $scope.baseUrl = CONFIG.INBOX.baseUrl;
     $scope.IsVisible = false;
 
-    notifications.then(function(notification) {
+    notifications.then(function (notification) {
         $scope.notifications = notification;
         $scope.updateNotViewedCount();
     });
 
-    $scope.updateNotViewedCount = function() {
+    $scope.updateNotViewedCount = function () {
         $scope.notViewedCount = $filter('filter')($scope.notifications.data, {
             viewed: false
         }).length;
     }
 
-    $scope.ShowHide = function() {
-        if($scope.IsVisible==false){
+    $scope.ShowHide = function () {
+        if ($scope.IsVisible == false) {
             var notifications = UserNotificationService.getAllNotifications();
-            notifications.then(function(notification) {
+            notifications.then(function (notification) {
                 $scope.notifications = notification;
                 $scope.updateNotViewedCount();
                 $scope.IsVisible = $scope.IsVisible ? false : true;
             });
-        }else{
+        } else {
             $scope.IsVisible = $scope.IsVisible ? false : true;
         }
     }
 
-    $scope.SoftDelete = function(array, index, notification) {
+    $scope.SoftDelete = function (array, index, notification) {
         array.splice(index, 1);
         method = 'PUT';
         apiName = 'softDelete';
@@ -62,7 +62,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         $scope.ajaxCall(method, apiName, data, null);
     }
 
-    $scope.markNotificationAsViewed = function(notification) {
+    $scope.markNotificationAsViewed = function (notification) {
         method = 'POST';
         if (!notification.viewed) {
             var data = {
@@ -84,7 +84,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         }
     }
 
-    $scope.markAllNotificationAsViewed = function() {
+    $scope.markAllNotificationAsViewed = function () {
 
         var notificationsToMark = $filter('filter')($scope.notifications.data, {
             isNotification: false
@@ -92,7 +92,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
 
         var idsToMark = [];
 
-        angular.forEach(notificationsToMark, function(notification, key) {
+        angular.forEach(notificationsToMark, function (notification, key) {
             idsToMark.push(notification.id);
         }, idsToMark);
 
@@ -111,7 +111,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         $scope.ajaxCall(method, apiName, data, null);
     }
 
-    $scope.ajaxCall = function(method, apiName, data, notification) {
+    $scope.ajaxCall = function (method, apiName, data, notification) {
         $http({
             method: method,
             url: $scope.baseUrl + "inbox/" + apiName,
@@ -120,7 +120,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
             if (notification) {
                 notification.viewed = true;
             } else {
-                angular.forEach($scope.notifications.data, function(notification, key) {
+                angular.forEach($scope.notifications.data, function (notification, key) {
                     notification.viewed = true;
                 });
             }
@@ -151,30 +151,9 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     if (browserVersion === 0) {
         browserVersion = parseFloat(new Number(RegExp.$1));
     }
-    var userAgent = browser + "*" + browserVersion;
-
-    if (isPushEnabled) {
-        var data = {
-            "flag": "F",
-            "memberId": localStorage.userId,
-            "registrationId": localStorage.subscriptionId,
-            "userAgent": userAgent,
-            "regionCode": "BENGALURU"
-        };
-        $http({
-            method: "POST",
-            url: 'https://backend-inboxnotification.fwd.wf/inbox/set',
-            data: data
-        }).then(function successCallback(response) {
-            console.log(response);
-        });
-    }
-
-    if(localStorage.notification_subscribe == "true"){
-        if(localStorage.notification_userAgent === 'firefox') {
-            UserNotificationService.setSubscription(localStorage.userId, localStorage.notification_subscriptionId, localStorage.notification_userAgent);
-            console.log("inside");
-        }
-        localStorage.notification_subscribe = "false";
+    var userAgent = browser;
+    if (localStorage.notification_subscribe == "true") {
+        UserNotificationService.setSubscription(localStorage.userId, localStorage.subscriptionId, userAgent);
+        localStorage.setItem('notification_subscribe', false);
     }
 }]);

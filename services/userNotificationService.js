@@ -105,7 +105,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "flag": "F",
                 "memberId": memberId,
                 "registrationId": registrationId,
-                "userAgent": userAgent ? userAgent :"chrome"
+                "userAgent": userAgent ? userAgent :"Chrome",
+                "regionCode" : "MUM"
             }
         }).then(function successCallback(response) {
             defer.resolve(response);
