@@ -22,6 +22,7 @@ function sendSubscriptionToServer(subscription) {
     var endpointSections = mergedEndpoint.split('/');
     var subscriptionId = endpointSections[endpointSections.length - 1];
     localStorage.setItem('subscriptionId', subscriptionId);
+    location.reload(true);
     localStorage.setItem('notification_subscribe', true);
     showCurlCommand(mergedEndpoint);
 }
