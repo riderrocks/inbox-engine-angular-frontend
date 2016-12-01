@@ -26,12 +26,12 @@ self.addEventListener('push', function(event) {
                 throw new Error();
             }
 
-            var notificationTitle = data[0].shortTxt;
-            var body = data[0].longTxt;
-            var icon = data[0].imgURL;
+            var notificationTitle = data.shortTxt;
+            var body = data.longTxt;
+            var icon = data.imgURL;
             var tag = 'simple-push-demo-notification-tag';
             var callToAction = {
-                url: data[0].appCodes[0].callToAction[0].link
+                url: data.appCodes[0].callToAction[0].link
             };
 
             return self.registration.showNotification(notificationTitle, {
