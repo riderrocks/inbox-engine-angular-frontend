@@ -56,7 +56,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
             announcement[i] = {
                 id: data[i]._id,
                 memberId: data[i].memberId ? data[i].memberId : null,
-                createdOn: new Date(data[i].createdOn).toUTCString().slice(0, 22),
+                createdOn: formatDate(new Date(data[i].createdOn)),
                 imgURL: data[i].imgURL,
                 longTxt: data[i].longTxt,
                 shortTxt: data[i].shortTxt,
@@ -73,6 +73,17 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         mongoIdArray.data = response_data;
         mongoIdArray.id = response_id;
         return mongoIdArray;
+    }
+      function formatDate(date) {
+        var dateDisp=new Date(date).toString().slice(0,16);
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return dateDisp+''+strTime;
     }
 
     this.getAllNotifications = function () {
