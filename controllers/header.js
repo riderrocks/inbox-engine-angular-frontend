@@ -62,7 +62,7 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         $scope.ajaxCall(method, apiName, data, null);
     }
 
-    $scope.markNotificationAsViewed = function (notification) {
+    $scope.markNotificationAsViewed = function (notification, shouldGoToLinkLocation) {
         method = 'POST';
         if (!notification.viewed) {
             var data = {
@@ -80,6 +80,8 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
                 apiName = 'get';
             }
             $scope.ajaxCall(method, apiName, data, notification);
+        }
+        if(shouldGoToLinkLocation){
             window.open(notification.callToAction, '_blank');
         }
     }

@@ -37,7 +37,7 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
         $scope.ajaxCall(method, apiName, data, null);
     }
 
-    $scope.markNotificationAsViewed = function(notification) {
+    $scope.markNotificationAsViewed = function(notification, shouldGoToLinkLocation) {
         method = 'POST';
         if (!notification.viewed) {
             var data = {
@@ -55,6 +55,9 @@ angular.module('myApp.notify', ['ngRoute']).config(['$routeProvider', function($
                 apiName = 'get';
             }
             $scope.ajaxCall(method, apiName, data, notification);
+        }
+        if(shouldGoToLinkLocation){
+            window.open(notification.callToAction, '_blank');
         }
     }
 
