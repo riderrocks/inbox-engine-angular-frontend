@@ -102,7 +102,6 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         }).then(function successCallback(response) {
             var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements, false), currentObject.prepareData(response.data.notifications, true));
             defer.resolve(notifications);
-            console.log(response);
         });
         return defer.promise;
     }
@@ -116,8 +115,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "flag": "F",
                 "memberId": memberId,
                 "registrationId": registrationId,
-                "userAgent": userAgent ? userAgent :"Chrome",
-                "regionCode" : "MUM"
+                "userAgent": userAgent ? userAgent : "Chrome",
+                "regionCode": "MUM"
             }
         }).then(function successCallback(response) {
             defer.resolve(response);
@@ -138,5 +137,40 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
             viewed: false
         }).length;
         return notViewedCount;
+    }
+
+    /*************************Sending Subsciption Id to Server*********************************/
+
+    this.subscribeForBrowserNotification = function () {
+        var browser = '';
+        var browserVersion = 0;
+        if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Opera';
+        } else if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+            browser = 'MSIE';
+        } else if (/Navigator[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Netscape';
+        } else if (/Chrome[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Chrome';
+        } else if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Safari';
+            /Version[\/\s](\d+\.\d+)/.test(navigator.userAgent);
+            browserVersion = new Number(RegExp.$1);
+        } else if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Firefox';
+        }
+        if (browserVersion === 0) {
+            browserVersion = parseFloat(new Number(RegExp.$1));
+        }
+        var userAgent = browser;
+        if (localStorage.notification_subscribe === "true") {
+            this.setSubscription(localStorage.userId, localStorage.subscriptionId, userAgent);
+            localStorage.setItem('notification_subscribe', false);
+        }else if(localStorage.subscribedAsGuestUser === "true"){
+            this.setSubscription(localStorage.userId, localStorage.subscriptionId, userAgent);
+            if(localStorage.userId){
+                localStorage.setItem('subscribedAsGuestUser', false);
+            }
+        }
     }
 }]);

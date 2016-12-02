@@ -23,6 +23,10 @@ function sendSubscriptionToServer(subscription) {
     var subscriptionId = endpointSections[endpointSections.length - 1];
     localStorage.setItem('subscriptionId', subscriptionId);
     localStorage.setItem('notification_subscribe', true);
+    localStorage.setItem('subscribedAsGuestUser', false);
+    if(!localStorage.userId){
+        localStorage.setItem('subscribedAsGuestUser', true);
+    }
     location.reload(true);
     showCurlCommand(mergedEndpoint);
 }
@@ -82,7 +86,6 @@ function subscribe() {
 }
 
 function initialiseState() {
-    console.log('called');
     if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
         console.error('Notifications aren\'t supported.');
         return;
