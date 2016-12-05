@@ -1,26 +1,16 @@
 'use strict';
-var inboxBaseUrl = "https://inboxpushservice.fwd.wf";
-self.addEventListener('push', function(event) {
+var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
+var link = null;
+self.addEventListener('push', function (event) {
     console.log('Received a push message', event);
 
-    // var title = 'Yay a message.';
-    // var body = 'We have received a push message.';
-    // var icon = '/images/icon-192x192.png';
-    // var tag = 'simple-push-demo-notification-tag';
-
-    // return self.registration.showNotification(title, {
-    //     body: body,
-    //     icon: icon,
-    //     tag: tag,
-    // });
-
-    event.waitUntil(fetch(inboxBaseUrl+'/inbox/latestAnnouncement').then(function(response) {
+    event.waitUntil(fetch(inboxBaseUrl + '/inbox/latestAnnouncement').then(function (response) {
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
                 response.status);
             return;
         }
-        return response.json().then(function(data) {
+        return response.json().then(function (data) {
             if (data.error || !data) {
                 console.error('The API returned an error.', data.error);
                 throw new Error();
@@ -41,29 +31,31 @@ self.addEventListener('push', function(event) {
             var callToAction = {
                 url: data.appCodes[0].callToAction[0].link
             };
-
+            link = data.appCodes[0].callToAction[0].link;
+            var text = data.appCodes[0].callToAction[0].text;
+            var actions = [];
+            if (link && text) {
+                var actions = [
+                    {action: 'goToUrl', title: text, icon: './images/tick.png'},
+                ];
+            }
             return self.registration.showNotification(notificationTitle, {
                 body: body,
                 icon: icon,
                 tag: tag,
-                data: callToAction
+                // data: callToAction,
+                actions: actions
             });
         });
     }));
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('notificationclick', function (event) {
     event.notification.close();
+    if (event.action === 'goToUrl') {
+        if (link) {
+            clients.openWindow(link);
 
-    let clickResponsePromise = Promise.resolve();
-    if (event.notification.data && event.notification.data.url) {
-        clickResponsePromise = clients.openWindow(event.notification.data.url);
+        }
     }
-
-    event.waitUntil(
-        Promise.all([
-            clickResponsePromise,
-            self.analytics.trackEvent('notification-click')
-        ])
-    );
 });
