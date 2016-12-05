@@ -1,5 +1,5 @@
 'use strict';
-var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
+var inboxBaseUrl = "https://inboxpushservice.fwd.wf";
 self.addEventListener('push', function(event) {
     console.log('Received a push message', event);
 
@@ -26,7 +26,15 @@ self.addEventListener('push', function(event) {
                 throw new Error();
             }
 
-            var notificationTitle = data.shortTxt;
+            //var appCode=data.appCodes[0].appcode;
+            var memberId="MYID04";
+            var regionCode="MUM";
+            var viewedAnnouncements=data._id;
+            // console.log(data.appCodes[0].appCode);
+            // console.log(memberId);
+            // console.log(regionCode);
+            // console.log(viewedAnnouncements);
+            var notificationTitle = data.shortTxt;            
             var body = data.longTxt;
             var icon = data.imgURL;
             var tag = 'simple-push-demo-notification-tag';
