@@ -1,9 +1,11 @@
 'use strict';
 var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
 var link = null;
+var announcementId = null;
+var registrationId = null;
 self.addEventListener('push', function (event) {
     console.log('Received a push message', event);
-
+    setRegistrationId();
     event.waitUntil(fetch(inboxBaseUrl + '/inbox/latestAnnouncement').then(function (response) {
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
@@ -31,6 +33,7 @@ self.addEventListener('push', function (event) {
             var callToAction = {
                 url: data.appCodes[0].callToAction[0].link
             };
+            announcementId = data._id;
             link = data.appCodes[0].callToAction[0].link;
             var text = data.appCodes[0].callToAction[0].text;
             var actions = [];
@@ -59,3 +62,26 @@ self.addEventListener('notificationclick', function (event) {
         }
     }
 });
+function markAnnouncementAsRead() {
+    var bodyData = "_id=" + announcementId + "&flag=A&appCode=WEBIN&registrationId=" + registrationId;
+    fetch(inboxBaseUrl, {
+        method: 'post',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: bodyData
+    })
+        .then(json)
+        .then(function (data) {
+            console.log('Request succeeded with JSON response', data);
+        })
+        .catch(function (error) {
+            console.log('Request failed', error);
+        });
+}
+
+function setRegistrationId() {
+    self.registration.pushManager.getSubscription().then(function (subscription) {
+        registrationId = subscription.endpoint.split("/").slice(-1);
+    });
+}
