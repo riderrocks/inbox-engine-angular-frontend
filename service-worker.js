@@ -57,6 +57,7 @@ self.addEventListener('notificationclick', function (event) {
     event.notification.close();
     if (event.action === 'goToUrl') {
         if (link) {
+            markAnnouncementAsRead();
             clients.openWindow(link);
 
         }
