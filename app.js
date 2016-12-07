@@ -1,6 +1,6 @@
 'use strict';
 var inboxUrl = 'https://172.16.65.3/inbox-engine/';
-var socketUrl = 'https://172.16.65.3/socket-io';
+var socketUrl = 'http://172.16.65.3:3000';
 var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'myApp.header', 'myApp.movies', 'myApp.payment', 'myApp.notify', 'myApp.profile']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({
         redirectTo: '/home'
