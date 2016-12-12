@@ -43,7 +43,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         });
     }
 
-    this.prepareData = function (data, isNotification) {
+    this.prepareData = function (data) {
         var announcement = [];
         var mongoIdArray = {};
         var response_id = [];
@@ -64,7 +64,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 target: data[i].callToAction[0].target,
                 callToAction: data[i].callToAction[0].link,
                 text: data[i].callToAction[0].text,
-                isNotification: isNotification,
+                isNotification: !data[i].isAnnouncement,
             };
             response_id.push(data[i]._id);
             response_data.push(announcement[i]);
@@ -74,8 +74,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         mongoIdArray.id = response_id;
         return mongoIdArray;
     }
-      function formatDate(date) {
-        var dateDisp=new Date(date).toString().slice(0,16);
+    function formatDate(date) {
+        var dateDisp = new Date(date).toString().slice(0, 16);
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
@@ -83,7 +83,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         hours = hours ? hours : 12; // the hour '0' should be '12'
         minutes = minutes < 10 ? '0' + minutes : minutes;
         var strTime = hours + ':' + minutes + ' ' + ampm;
-        return dateDisp+''+strTime;
+        return dateDisp + '' + strTime;
     }
 
     this.getAllNotifications = function () {
@@ -100,7 +100,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "memberId": this.userId
             }
         }).then(function successCallback(response) {
-            var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements, false), currentObject.prepareData(response.data.notifications, true));
+            var notifications = currentObject.prepareData(response.data);
+            console.log(notifications);
             defer.resolve(notifications);
         });
         return defer.promise;
@@ -166,9 +167,9 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         if (localStorage.notification_subscribe === "true") {
             this.setSubscription(localStorage.userId, localStorage.subscriptionId, userAgent);
             localStorage.setItem('notification_subscribe', false);
-        }else if(localStorage.subscribedAsGuestUser === "true"){
+        } else if (localStorage.subscribedAsGuestUser === "true") {
             this.setSubscription(localStorage.userId, localStorage.subscriptionId, userAgent);
-            if(localStorage.userId){
+            if (localStorage.userId) {
                 localStorage.setItem('subscribedAsGuestUser', false);
             }
         }
