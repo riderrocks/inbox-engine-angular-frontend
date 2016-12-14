@@ -107,6 +107,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
     }
 
     this.setSubscription = function (memberId, registrationId, userAgent) {
+       // console.log("here is"+registrationId);
         var defer = $q.defer();
         $http({
             method: 'POST',
@@ -115,7 +116,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "flag": "F",
                 "memberId": memberId,
                 "registrationId": registrationId,
-                "userAgent": userAgent ? userAgent : "Chrome",
+                "userAgent": userAgent,
                 "regionCode": "MUM"
             }
         }).then(function successCallback(response) {

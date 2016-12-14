@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" href="images/favicon.ico" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="images/favicon.ico" sizes="32x32" />
     <title>My AngularJS App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="css/ladda.min.css">
     <link rel="manifest" href="fcm/manifest.json">
 </head>
+
 <body>
     <div ng-view></div>
     <script src="bower_components/please-wait/build/please-wait.js"></script>
@@ -43,10 +45,18 @@
     <script src="controllers/payment.js"></script>
     <script src="controllers/notify.js"></script>
     <script src="controllers/profile.js"></script>
-    <script src="fcm/config.js"></script>
-    <script src="fcm/main.js"></script>
+   
+  
     <script src="lib/loadingStop.js"></script>
-    <!-- <script src="./lib/notification/firefoxPushNotification.js"></script> -->
+    <script type="text/javascript">
+    if (/Chrome[\/\s](\d+\.\d+)/.test(navigator.userAgent)) 
+        document.write('<script src="fcm/config.js"><\/script><script src="fcm/main.js"><\/script>');
+
+        else if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) 
+            document.write('  <script src="./lib/notification/firefoxPushNotification.js"><\/script>');
+       
+    </script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.1/socket.io.js"></script> -->
 </body>
+
 </html>

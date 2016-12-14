@@ -2,7 +2,7 @@
  * Created by jeevann on 25/11/16.
  */
 'use strict';
-var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
+var inboxBaseUrl = "https://inboxsprint8.fwd.wf";
 self.addEventListener('push', function(event) {
     console.log('Received a push message', event);
 
@@ -33,7 +33,7 @@ self.addEventListener('push', function(event) {
             var memberId="MYID04";
             var regionCode="MUM";
             var viewedAnnouncements=data._id;
-            // console.log(appCode);
+            console.log(appCode);
             // console.log(memberId);
             // console.log(regionCode);
             // console.log(viewedAnnouncements);

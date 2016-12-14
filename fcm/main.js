@@ -115,8 +115,9 @@ function initialiseState() {
 }
 
 window.addEventListener('load', function () {
+    
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js')
+        navigator.serviceWorker.register('./chromeService-worker.js')
             .then(initialiseState);
     } else {
         console.error('Service workers aren\'t supported in this browser.');
