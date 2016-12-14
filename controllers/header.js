@@ -29,12 +29,13 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
 
     $scope.ShowHide = function () {
         if ($scope.IsVisible == false) {
-            var notifications = UserNotificationService.getAllNotifications();
-            notifications.then(function (notification) {
-                $scope.notifications = notification;
-                $scope.updateNotViewedCount();
-                $scope.IsVisible = $scope.IsVisible ? false : true;
-            });
+            // var notifications = UserNotificationService.getAllNotifications();
+            // notifications.then(function (notification) {
+            //     $scope.notifications = notification;
+            //     $scope.updateNotViewedCount();
+            //     $scope.IsVisible = $scope.IsVisible ? false : true;
+            // });
+            $scope.IsVisible = $scope.IsVisible ? false : true;
         } else {
             $scope.IsVisible = $scope.IsVisible ? false : true;
         }
