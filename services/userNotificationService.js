@@ -43,7 +43,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         });
     }
 
-    this.prepareData = function (data, isNotification) {
+    this.prepareData = function (data) {
         var announcement = [];
         var mongoIdArray = {};
         var response_id = [];
@@ -56,7 +56,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
             announcement[i] = {
                 id: data[i]._id,
                 memberId: data[i].memberId ? data[i].memberId : null,
-                createdOn: new Date(data[i].createdOn).toUTCString().slice(0, 22),
+                createdOn: formatDate(new Date(data[i].createdOn)),
                 imgURL: data[i].imgURL,
                 longTxt: data[i].longTxt,
                 shortTxt: data[i].shortTxt,
@@ -64,7 +64,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 target: data[i].callToAction[0].target,
                 callToAction: data[i].callToAction[0].link,
                 text: data[i].callToAction[0].text,
-                isNotification: isNotification,
+                isNotification: !data[i].isAnnouncement,
             };
             response_id.push(data[i]._id);
             response_data.push(announcement[i]);
@@ -73,6 +73,17 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         mongoIdArray.data = response_data;
         mongoIdArray.id = response_id;
         return mongoIdArray;
+    }
+    function formatDate(date) {
+        var dateDisp = new Date(date).toString().slice(0, 16);
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return dateDisp + '' + strTime;
     }
 
     this.getAllNotifications = function () {
@@ -89,7 +100,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "memberId": this.userId
             }
         }).then(function successCallback(response) {
-            var notifications = currentObject.concatAnnouncementAndNotifications(currentObject.prepareData(response.data.announcements, false), currentObject.prepareData(response.data.notifications, true));
+            var notifications = currentObject.prepareData(response.data);
+            console.log(notifications);
             defer.resolve(notifications);
         });
         return defer.promise;
@@ -104,7 +116,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "flag": "F",
                 "memberId": memberId,
                 "registrationId": registrationId,
-                "userAgent": userAgent ? userAgent :"chrome"
+                "userAgent": userAgent ? userAgent : "Chrome",
+                "regionCode": "MUM"
             }
         }).then(function successCallback(response) {
             defer.resolve(response);
@@ -125,5 +138,40 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
             viewed: false
         }).length;
         return notViewedCount;
+    }
+
+    /*************************Sending Subsciption Id to Server*********************************/
+
+    this.subscribeForBrowserNotification = function () {
+        var browser = '';
+        var browserVersion = 0;
+        if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Opera';
+        } else if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+            browser = 'MSIE';
+        } else if (/Navigator[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Netscape';
+        } else if (/Chrome[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Chrome';
+        } else if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Safari';
+            /Version[\/\s](\d+\.\d+)/.test(navigator.userAgent);
+            browserVersion = new Number(RegExp.$1);
+        } else if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = 'Firefox';
+        }
+        if (browserVersion === 0) {
+            browserVersion = parseFloat(new Number(RegExp.$1));
+        }
+        var userAgent = browser;
+        if (localStorage.notification_subscribe === "true") {
+            this.setSubscription(localStorage.userId, localStorage.subscriptionId, userAgent);
+            localStorage.setItem('notification_subscribe', false);
+        } else if (localStorage.subscribedAsGuestUser === "true") {
+            this.setSubscription(localStorage.userId, localStorage.subscriptionId, userAgent);
+            if (localStorage.userId) {
+                localStorage.setItem('subscribedAsGuestUser', false);
+            }
+        }
     }
 }]);

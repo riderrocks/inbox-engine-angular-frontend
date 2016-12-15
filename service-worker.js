@@ -1,6 +1,9 @@
 'use strict';
-
-self.addEventListener('push', function(event) {
+var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
+var link = null;
+var announcementId = null;
+var registrationId = null;
+self.addEventListener('push', function (event) {
     console.log('Received a push message', event);
 
     // var title = 'Yay a message.';
@@ -14,48 +17,85 @@ self.addEventListener('push', function(event) {
     //     tag: tag,
     // });
 
-    event.waitUntil(fetch('https://backend-inboxenginenotification.fwd.wf/inbox/latestAnnouncement').then(function(response) {
+
+    setRegistrationId();
+    event.waitUntil(fetch(inboxBaseUrl + '/inbox/latestAnnouncement').then(function (response) {
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
                 response.status);
             return;
         }
-        return response.json().then(function(data) {
+        return response.json().then(function (data) {
             if (data.error || !data) {
                 console.error('The API returned an error.', data.error);
                 throw new Error();
             }
 
-            var notificationTitle = data[0].shortTxt;
-            var body = data[0].longTxt;
-            var icon = data[0].imgURL;
+            //var appCode=data.appCodes[0].appcode;
+            var memberId="MYID04";
+            var regionCode="MUM";
+            var viewedAnnouncements=data._id;
+            // console.log(data.appCodes[0].appCode);
+            // console.log(memberId);
+            // console.log(regionCode);
+            // console.log(viewedAnnouncements);
+            var notificationTitle = data.shortTxt;            
+            var body = data.longTxt;
+            var icon = data.imgURL;
             var tag = 'simple-push-demo-notification-tag';
             var callToAction = {
-                url: data[0].appCodes[0].callToAction[0].link
+                url: data.appCodes[0].callToAction[0].link
             };
-
+            announcementId = data._id;
+            link = data.appCodes[0].callToAction[0].link;
+            var text = data.appCodes[0].callToAction[0].text;
+            var actions = [];
+            if (link && text) {
+                var actions = [
+                    {action: 'goToUrl', title: text, icon: './images/tick.png'},
+                ];
+            }
             return self.registration.showNotification(notificationTitle, {
                 body: body,
                 icon: icon,
                 tag: tag,
-                data: callToAction
+                // data: callToAction,
+                actions: actions
             });
         });
     }));
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('notificationclick', function (event) {
     event.notification.close();
+    if (event.action === 'goToUrl') {
+        if (link) {
+            markAnnouncementAsRead();
+            clients.openWindow(link);
 
-    let clickResponsePromise = Promise.resolve();
-    if (event.notification.data && event.notification.data.url) {
-        clickResponsePromise = clients.openWindow(event.notification.data.url);
+        }
     }
-
-    event.waitUntil(
-        Promise.all([
-            clickResponsePromise,
-            self.analytics.trackEvent('notification-click')
-        ])
-    );
 });
+function markAnnouncementAsRead() {
+    var bodyData = "_id=" + announcementId + "&flag=A&appCode=WEBIN&registrationId=" + registrationId;
+    fetch(inboxBaseUrl, {
+        method: 'post',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: bodyData
+    })
+        .then(json)
+        .then(function (data) {
+            console.log('Request succeeded with JSON response', data);
+        })
+        .catch(function (error) {
+            console.log('Request failed', error);
+        });
+}
+
+function setRegistrationId() {
+    self.registration.pushManager.getSubscription().then(function (subscription) {
+        registrationId = subscription.endpoint.split("/").slice(-1);
+    });
+}

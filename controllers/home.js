@@ -4,7 +4,7 @@ angular.module('myApp.home', ['ngRoute', 'firebase']).config(['$routeProvider', 
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
     });
-}]).controller('HomeCtrl', ['$scope', '$location', 'CommonProp', '$firebaseAuth', function($scope, $location, CommonProp, $firebaseAuth) {
+}]).controller('HomeCtrl', ['$scope', '$location', 'CommonProp', '$firebaseAuth', 'UserNotificationService', function($scope, $location, CommonProp, $firebaseAuth, UserNotificationService) {
     var firebaseObj = new Firebase("https://radiant-torch-5333.firebaseio.com");
     var loginObj = $firebaseAuth(firebaseObj);
     loginObj.$onAuth(function(authData) {
@@ -32,7 +32,8 @@ angular.module('myApp.home', ['ngRoute', 'firebase']).config(['$routeProvider', 
             login.loading = false;
             swal("Oops!", "Authentication failure", "error");
         });
-    }
+    };
+    UserNotificationService.subscribeForBrowserNotification();
 }]).directive('laddaLoading', [function() {
     return {
         link: function(scope, element, attrs) {
