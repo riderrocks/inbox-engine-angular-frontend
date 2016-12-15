@@ -80,7 +80,6 @@ function subscribe() {
 }
 
 function initialiseState() {
-    console.log('called');
     if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
         console.error('Notifications aren\'t supported.');
         return;

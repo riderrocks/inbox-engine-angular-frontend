@@ -6,7 +6,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         movie.title = 'Rangitaranga';
         movie.imgUrl = 'http://172.16.65.3:8009/WebNotifications/Bookmyshow/uploads/ET00030170.jpg';
         movie.venue = 'Inox Garuda Mall';
-        movie.dateShowTime = new Date();
+        movie.dateShowTime = new Date().toUTCString().slice(0, 22);
         movie.price = '120';
         movie.booknow = '#/payment/' + movie.id;
         movie.language = 'Kannada';
@@ -27,7 +27,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '200';
         newMovie.seatInfo = 'DIAMOND';
         newMovie.screen = 'AUDI 1';
-        newMovie.dateShowTime = '17/11/2016 4:25pm';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/the-conjuring/ET00014420';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
@@ -41,7 +41,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '120';
         newMovie.seatInfo = 'PREMIER';
         newMovie.screen = 'SCREEN 5';
-        newMovie.dateShowTime = '19/11/2016 5:30pm';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/thithi/ET00041598';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
@@ -55,7 +55,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '180';
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'AUDI 2';
-        newMovie.dateShowTime = '20-11-2016 10:30am';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/pink/ET00039892';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
@@ -69,7 +69,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '180';
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'SCREEN 7';
-        newMovie.dateShowTime = '19-11-2016 2:30pm';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/ki-ka/ET00035932';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
@@ -83,7 +83,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '180';
         newMovie.seatInfo = 'EXECUTIV';
         newMovie.screen = 'AUDI 6';
-        newMovie.dateShowTime = '20-11-2016 9:30pm';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = '';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
@@ -97,6 +97,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '120';
         newMovie.seatInfo = 'PREMIER';
         newMovie.screen = 'SCREEN 3';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/chakravyuha/ET00017703';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
@@ -110,6 +111,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '200';
         newMovie.seatInfo = 'DIAMOND';
         newMovie.screen = 'AUDI 2';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/10-cloverfield-lane/ET00039119';
         movies.push(newMovie);
         newMovie = angular.copy(movie);
@@ -123,6 +125,7 @@ var MovieService = app.service('MovieService', ['UserNotificationService', funct
         newMovie.price = '200';
         newMovie.seatInfo = 'DIAMOND';
         newMovie.screen = 'AUDI 4';
+        newMovie.dateShowTime = new Date().toUTCString().slice(0, 22);
         newMovie.callToAction = 'https://in.bookmyshow.com/bengaluru/movies/central-intelligence/ET00036163';
         movies.push(newMovie);
         return movies;

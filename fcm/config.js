@@ -1,4 +1,5 @@
 window.GoogleSamples = window.GoogleSamples || {};
 window.GoogleSamples.Config = window.GoogleSamples.Config || {
-  gcmAPIKey: 'AAAAVKv1Hhs:APA91bEct7z5AkleIS064-H7D3KsNUT_ch8S0ZEYbLdbYeRQOTR7ECAgnN_fTrDNsdijQpMSd7r19F5AE1bYWkM0PCb8x58bSiPIzDbLH1LbHS7CcBp7_8lUfahYYaryZOyX0Ym8cYRPMU7O9AL4bGD-McUO2v_jVQ'
+  gcmAPIKey: 'AAAAV18UcMQ:APA91bE_UbJyIm2rbNhkMbfBtoFcUYK6ozbvE4kDaQpryFxUbkZKR38Y-RAm4K3uMM4cVJGv4nYPTn0C6yg-xmdnTauBmY4_lFPMKbIG2O6zwa5pT9JszVF6hsU2684IgnK2bQHWpxFpy2rJCHhuzeSS9DjR38lYuQ'
 };
+

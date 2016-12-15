@@ -153,27 +153,26 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
     }
     var userAgent = browser + "*" + browserVersion;
 
-    if (isPushEnabled) {
+    // if (isPushEnabled) {
         var data = {
             "flag": "F",
             "memberId": localStorage.userId,
-            "registrationId": localStorage.subscriptionId,
+            "registrationId": localStorage.subscriptionId || localStorage.notification_subscriptionId,
             "userAgent": userAgent,
             "regionCode": "BENGALURU"
         };
         $http({
             method: "POST",
-            url: 'https://backend-inboxnotification.fwd.wf/inbox/set',
+            url: 'https://backend-inboxenginenotification.fwd.wf/inbox/set',
             data: data
         }).then(function successCallback(response) {
-            console.log(response);
+           // console.log(response);
         });
-    }
+    // }
 
     if(localStorage.notification_subscribe == "true"){
         if(localStorage.notification_userAgent === 'firefox') {
             UserNotificationService.setSubscription(localStorage.userId, localStorage.notification_subscriptionId, localStorage.notification_userAgent);
-            console.log("inside");
         }
         localStorage.notification_subscribe = "false";
     }
