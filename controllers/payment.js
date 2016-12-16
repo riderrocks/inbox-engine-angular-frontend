@@ -15,15 +15,20 @@ angular.module('myApp.payment', ['ngRoute', 'ui.bootstrap']).config(['$routeProv
     $scope.movie = MovieService.getMovieDetails(param);
 
     $scope.bookMovie = function(movie) {
-        $scope.isPaymentMade = true;
-        var user = {};
-        user.userId = CommonProp.getUserId();
-        user.userEmail = CommonProp.getUser();
-        IsService.bookMovie(movie, user).then(function successCallback(response) {
-           $window.location.reload();
-           $location.path('/movies');
-        }, function errorCallback(response) {
 
-        });
+        if (movie.quantity < 0 || movie.quantity == 0 || movie.quantity == null) {
+            swal("Oops!", "Quantity cannot be zero or null", "error");
+        } else if (movie.quantity > 0) {
+            $scope.isPaymentMade = true;
+            var user = {};
+            user.userId = CommonProp.getUserId();
+            user.userEmail = CommonProp.getUser();
+            IsService.bookMovie(movie, user).then(function successCallback(response) {
+                $window.location.reload();
+                $location.path('/movies');
+            }, function errorCallback(response) {
+
+            });
+        }
     }
 }]);
