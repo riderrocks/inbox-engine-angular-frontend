@@ -1,7 +1,7 @@
 'use strict';
 
-var inboxUrl = 'http://172.16.65.7:6633/';
-var socketUrl = 'http://172.16.65.7:4001';
+var inboxUrl = 'https://testinbox.bms.bz/backend/';
+var socketUrl = 'https://testinbox.bms.bz';
 
 var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'myApp.header', 'myApp.movies', 'myApp.payment', 'myApp.notify', 'myApp.profile']).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({
