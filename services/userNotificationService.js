@@ -140,6 +140,22 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return notViewedCount;
     }
 
+    this.fetchMemberIdFromEmailId = function(value) {
+        var defer = $q.defer();
+        $http({
+            method: 'POST',
+            url: this.baseUrl + 'cms/fetch/email',
+            data: {
+                memberEmail: value
+            }
+        }).success(function(response) {
+            console.log(response);
+            defer.resolve(response);
+        });
+
+        return defer.promise;
+    }
+
     /*************************Sending Subsciption Id to Server*********************************/
 
     this.subscribeForBrowserNotification = function () {
