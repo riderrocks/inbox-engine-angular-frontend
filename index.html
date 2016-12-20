@@ -17,13 +17,14 @@
 </head>
 <body>
     <div ng-view></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.1/socket.io.js"></script>
     <script src="bower_components/please-wait/build/please-wait.js"></script>
     <script src="lib/loadingStart.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <script src="lib/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
-    <script src="lib/socket.io/socket.io.js"></script>
+    <!--<script src="lib/socket.io/socket.io.js"></script>-->
     <script src="lib/jquery-2.0.1.min.js"></script>
     <script src="lib/bootstrap/3.3.4/bootstrap.min.js"></script>
     <script src="lib/firebase/2.0.4/firebase.js"></script>
@@ -44,10 +45,9 @@
     <script src="controllers/payment.js"></script>
     <script src="controllers/notify.js"></script>
     <script src="controllers/profile.js"></script>
-    <!--<script src="fcm/config.js"></script>-->
-    <!--<script src="fcm/main.js"></script>-->
+    <script src="fcm/config.js"></script>
+    <script src="fcm/main.js"></script>
     <script src="lib/loadingStop.js"></script>
     <!-- <script src="./lib/notification/firefoxPushNotification.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.1/socket.io.js"></script> -->
 </body>
 </html>

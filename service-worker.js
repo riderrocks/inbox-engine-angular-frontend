@@ -1,5 +1,5 @@
 'use strict';
-var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
+var inboxBaseUrl = "https://testinbox.bms.bz/backend";
 var link = null;
 var announcementId = null;
 var registrationId = null;
