@@ -4,7 +4,7 @@ angular.module('myApp.home', ['ngRoute', 'firebase']).config(['$routeProvider', 
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
     });
-}]).controller('HomeCtrl', ['$scope', '$location', 'CommonProp', '$firebaseAuth', 'UserNotificationService', function($scope, $location, CommonProp, $firebaseAuth, UserNotificationService) {
+}]).controller('HomeCtrl', ['$scope',  '$window', '$location', 'CommonProp', '$firebaseAuth', 'UserNotificationService', function($scope, $window, $location, CommonProp, $firebaseAuth, UserNotificationService) {
     var firebaseObj = new Firebase("https://radiant-torch-5333.firebaseio.com");
     var loginObj = $firebaseAuth(firebaseObj);
     loginObj.$onAuth(function(authData) {
@@ -25,9 +25,13 @@ angular.module('myApp.home', ['ngRoute', 'firebase']).config(['$routeProvider', 
             email: username,
             password: password
         }).then(function(user) {
-            CommonProp.setUserId(user.uid);
-            CommonProp.setUser(user.password.email);
-            $location.path('/movies');
+            //CommonProp.setUserId(user.uid);
+            UserNotificationService.fetchMemberIdFromEmailId($scope.user.email).then(function(response) {
+                CommonProp.setUserId(response.memberId);
+                CommonProp.setUser(user.password.email);
+                $window.location.reload();
+                $location.path('/movies');
+            });
         }, function(error) {
             login.loading = false;
             swal("Oops!", "Authentication failure", "error");

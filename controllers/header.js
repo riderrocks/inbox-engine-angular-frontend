@@ -130,5 +130,6 @@ angular.module('myApp.header', ['ngRoute']).controller('NavbarCtrl', ['$scope', 
         });
         $window.location.reload();
     }
+
     UserNotificationService.subscribeForBrowserNotification();
 }]);

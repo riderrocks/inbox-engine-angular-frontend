@@ -2,7 +2,7 @@
  * Created by jeevann on 25/11/16.
  */
 'use strict';
-var inboxBaseUrl = "https://inboxsprint8.fwd.wf";
+var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
 self.addEventListener('push', function(event) {
     console.log('Received a push message', event);
 
@@ -29,14 +29,16 @@ self.addEventListener('push', function(event) {
                 throw new Error();
             }
 
+            var notificationTitle = data[0].shortTxt;
+            var body = data[0].longTxt;
+            var icon = data[0].imgURL;
+            var tag = 'simple-push-demo-notification-tag';
+            var callToAction = {
+                url: data[0].appCodes[0].callToAction[0].link
             var appCode=data.appCodes[0].appCode;
             var memberId="MYID04";
             var regionCode="MUM";
             var viewedAnnouncements=data._id;
-            console.log(appCode);
-            // console.log(memberId);
-            // console.log(regionCode);
-            // console.log(viewedAnnouncements);
             var notificationTitle = data.shortTxt;            
             var body = data.longTxt;
             var icon = data.imgURL;
@@ -51,10 +53,9 @@ self.addEventListener('push', function(event) {
                 tag: tag,
                 data: callToAction
             });
-        });
-    }));
+        }
+    });
 });
-
 self.addEventListener('notificationclick', function(event) {
     event.notification.close();
 
