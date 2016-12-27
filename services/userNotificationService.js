@@ -97,7 +97,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
             url: this.baseUrl + "inbox/get",
             data: {
                 "appCode": "WEBIN",
-                "regionCode": "MUM",
+                "regionCode": "MUMBAI",
                 "memberId": this.userId
             }
         }).then(function successCallback(response) {
@@ -119,7 +119,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "memberId": memberId,
                 "registrationId": registrationId,
                 "userAgent": userAgent,
-                "regionCode": "MUM"
+                "regionCode": "MUMBAI"
             }
         }).then(function successCallback(response) {
             defer.resolve(response);
