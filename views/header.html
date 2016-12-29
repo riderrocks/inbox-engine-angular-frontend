@@ -35,7 +35,7 @@
                                     <div><a ng-click="markNotificationAsViewed(i)" target="_blank"><strong class="title">{{i.shortTxt}}</strong></a></div>
                                     <div><sup ng-class="i.viewed==false?'new':'old'">New</sup> </div>
                                     <div><small class="msg">{{i.longTxt}}</small> </div>
-                                    <div><small class="date">{{i.createdOn}}</small><a class="btn _more-info" ng-click='markNotificationAsViewed(i, true)' target="{{i.target}}">{{i.text}}</a></div>
+                                    <div><small class="date">{{i.createdOn}}</small><a class="btn _more-info" ng-hide="i.text==null" ng-click='markNotificationAsViewed(i, true)' target="{{i.target}}">{{i.text}}</a></div>
                                 </div>
                             </div>
                         </li>

@@ -1,5 +1,5 @@
 'use strict';
-var inboxBaseUrl = "https://172.16.65.3/inbox-engine";
+var inboxBaseUrl = "http://172.16.65.7:6633";
 var link = null;
 var announcementId = null;
 var registrationId = null;

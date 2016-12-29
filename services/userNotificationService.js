@@ -1,9 +1,9 @@
-var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', 'CONFIG', '$filter', function ($q, $http, CommonProp, CONFIG, $filter) {
+var UserNotificationService = app.service('UserNotificationService', ['$q', '$http', 'CommonProp', 'CONFIG', '$filter', function($q, $http, CommonProp, CONFIG, $filter) {
     this.baseUrl = CONFIG.INBOX.baseUrl;
     this.userId = CommonProp.getUserId();
     this.userEmail = CommonProp.getUser();
 
-    this.notifyBookMovie = function (movie) {
+    this.notifyBookMovie = function(movie) {
         var notification = {
             "shortTxt": movie.title || movie.arrET[0].Event_strTitle,
             "createdOn": "2015-07-18T16:16:39.669Z",
@@ -43,15 +43,15 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         });
     }
 
-    this.prepareData = function (data) {
+    this.prepareData = function(data) {
         var announcement = [];
         var mongoIdArray = {};
         var response_id = [];
         var response_data = [];
         for (i = 0; i < data.length; i++) {
-            if (data[i].callToAction[0].text == '' || data[i].callToAction[0].text == 'sample text') {
-                data[i].callToAction[0].text = 'Learn More';
-            }
+            // if (data[i].callToAction[0].text == '' || data[i].callToAction[0].text == 'sample text') {
+            //     data[i].callToAction[0].text = 'Learn More';
+            // }
 
             announcement[i] = {
                 id: data[i]._id,
@@ -74,6 +74,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         mongoIdArray.id = response_id;
         return mongoIdArray;
     }
+
     function formatDate(date) {
         var dateDisp = new Date(date).toString().slice(0, 16);
         var hours = date.getHours();
@@ -86,7 +87,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return dateDisp + '' + strTime;
     }
 
-    this.getAllNotifications = function () {
+    this.getAllNotifications = function() {
         currentObject = this;
         var announcement_ids = [];
         var notification_ids = [];
@@ -107,7 +108,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return defer.promise;
     }
 
-    this.setSubscription = function (memberId, registrationId, userAgent) {
+    this.setSubscription = function(memberId, registrationId, userAgent) {
+        // console.log("here is"+registrationId);
         var defer = $q.defer();
         $http({
             method: 'POST',
@@ -116,8 +118,8 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
                 "flag": "F",
                 "memberId": memberId,
                 "registrationId": registrationId,
-                "userAgent": userAgent ? userAgent : "Chrome",
-                "regionCode": "MUM"
+                "userAgent": userAgent,
+                "regionCode": "MUMBAI"
             }
         }).then(function successCallback(response) {
             defer.resolve(response);
@@ -125,7 +127,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return defer.promise;
     }
 
-    this.concatAnnouncementAndNotifications = function (announcement, notification) {
+    this.concatAnnouncementAndNotifications = function(announcement, notification) {
         for (var i = 0; i < announcement.data.length; i++) {
             notification.data.push(announcement.data[i]);
             notification.id.push(announcement.id[i]);
@@ -133,7 +135,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
         return notification;
     }
 
-    this.updateNotViewedCount = function (notifications) {
+    this.updateNotViewedCount = function(notifications) {
         var notViewedCount = $filter('filter')(notifications.data, {
             viewed: false
         }).length;
@@ -158,7 +160,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
 
     /*************************Sending Subsciption Id to Server*********************************/
 
-    this.subscribeForBrowserNotification = function () {
+    this.subscribeForBrowserNotification = function() {
         var browser = '';
         var browserVersion = 0;
         if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
