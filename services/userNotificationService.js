@@ -96,7 +96,7 @@ var UserNotificationService = app.service('UserNotificationService', ['$q', '$ht
             url: this.baseUrl + "inbox/get",
             data: {
                 "appCode": "WEBIN",
-                "regionCode": "MUM",
+                "regionCode": "MUMBAI",
                 "memberId": this.userId
             }
         }).then(function successCallback(response) {
