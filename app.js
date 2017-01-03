@@ -28,6 +28,10 @@ var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'm
                 }
                 scope.notifications.data[index] = notify.data[0];
                 scope.notifications.id[index] = notify.id[0];
+            }else{
+                scope.notifications.data.unshift(notify.data[0]);
+                scope.notifications.id.unshift(notify.id[0]);
+                scope.notViewedCount += 1;
             }
         } else {
             scope.notifications.data.unshift(notify.data[0]);
@@ -40,10 +44,12 @@ var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'm
         scope: true,
         link: function (scope, element, attrs) {
             SocketIoService.on('notification', function (message) {
+                console.log(message);
                 pushMessage(message, scope);
             });
             var memberId = localStorage.userId;
             SocketIoService.on('notification_' + memberId, function (message) {
+                console.log(message);
                 pushMessage(message, scope);
             });
         }
