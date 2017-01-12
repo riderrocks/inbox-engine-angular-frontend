@@ -43,7 +43,11 @@ var app = angular.module('myApp', ['ngRoute', 'myApp.register', 'myApp.home', 'm
         template: `<span id='notification_count' ng-if='notViewedCount>0'>{{notViewedCount}}</span>`,
         scope: true,
         link: function (scope, element, attrs) {
-            SocketIoService.on('notification', function (message) {
+            SocketIoService.on('announcement', function (message) {
+                console.log(message);
+                pushMessage(message, scope);
+            });
+            SocketIoService.on('announcement_MUMBAI', function (message) {
                 console.log(message);
                 pushMessage(message, scope);
             });
